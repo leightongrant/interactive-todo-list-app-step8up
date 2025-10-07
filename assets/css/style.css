@@ -1,7 +1,7 @@
 :root {
 	scroll-behavior: smooth;
-	--primary-color: hsl(179, 33, 65);
-	--secondary-color: hsl(202, 17, 88);
+	--primary-color: #80bebf;
+	--secondary-color: #dae1e5;
 }
 body {
 	min-inline-size: 22.5rem;
@@ -9,15 +9,34 @@ body {
 		sans-serif;
 	/* background-repeat: no-repeat; */
 	min-inline-size: 22.5rem;
-	min-block-size: 100vh;
-	background-color: gray;
+	background-color: yellow; /*#efefef*/
+	outline: 2px solid red;
 }
 #app {
-	min-block-size: 100%;
-	display: grid;
-	place-content: center;
+	min-height: 100vh;
 }
 .app-container {
 	background: linear-gradient(to bottom, #80bebf, #dae1e5);
-	block-size: 900px;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	min-block-size: 51rem;
+}
+
+footer {
+	background-color: var(--primary-color);
+	padding-block: 2rem;
+}
+.item-wrapper {
+	background-color: var(--secondary-color);
+}
+@media (min-width: 1200px) {
+	.app-container {
+		border-radius: 1rem;
+		max-inline-size: 1140px;
+		margin: auto;
+		margin-block-start: 5rem;
+	}
+	footer {
+		border-radius: 0 0 1rem 1rem;
+	}
 }
