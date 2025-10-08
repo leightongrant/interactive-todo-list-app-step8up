@@ -1,19 +1,10 @@
 import todoItem from './todoItem.js'
-
-const todos = [
-	'Do the dishes',
-	'Do the shopping and book my holiday to turkey',
-	'Walk the dog',
-	'Swimming Lesson',
-	'Clean the car',
-	'Do the laundry',
-	'Study for my exams',
-]
+import todoData from '../db.js'
 
 const main = () => {
 	let todoItems = ''
-	todos.forEach(item => {
-		todoItems += todoItem(item)
+	todoData.forEach(data => {
+		todoItems += todoItem(data)
 	})
 
 	return todoItems

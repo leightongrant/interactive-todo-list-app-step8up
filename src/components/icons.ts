@@ -18,13 +18,13 @@ export const settingsIcon = () => {
 
 export const checkCircleIcon = () => {
 	return `
-    <i class="bi bi-check2-circle text-success"></i>
+    <div class="bi bi-check2-circle text-success btn fs-1" role="button" name="completed" title="Completed"></div>
     `
 }
 
 export const circleIcon = () => {
 	return `
-    <i class="bi bi-circle text-secondary"></i>
+    <div class="bi bi-circle text-secondary btn fs-1" role="button" name="completed" title="Incomplete"></div>
     `
 }
 
