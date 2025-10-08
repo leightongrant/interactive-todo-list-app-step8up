@@ -1,4 +1,4 @@
-import todoData from '../db.js'
+// import todoData from '../db.js'
 import type { TodoData } from '../db.js'
 import generateId from '../utils/generateId.js'
 
@@ -8,15 +8,21 @@ export const handleCompleted = () => {
 		btn.addEventListener('click', e => {
 			const target = e.target as HTMLDivElement
 			const id = target.parentElement?.id
-			const todos = todoData.map(todo => {
-				if (todo.id === id) {
-					return { ...todo, isCompleted: !todo.isCompleted }
-				}
-				return todo
-			})
 
-			console.log(todoData)
-			console.log(todos)
+			const todoData = localStorage.getItem('todos')
+			if (typeof todoData === 'string') {
+				const dataToUpdate = JSON.parse(todoData) as TodoData[]
+				const updatedTodos = dataToUpdate.map((todo: TodoData) => {
+					if (todo.id === id) {
+						return { ...todo, isCompleted: !todo.isCompleted }
+					}
+					return todo
+				})
+
+				localStorage.setItem('todos', JSON.stringify(updatedTodos))
+				console.log('Task marked as completed or incomplete')
+				location.reload()
+			}
 		})
 	})
 }
