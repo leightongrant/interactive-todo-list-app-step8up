@@ -1,6 +1,6 @@
 import todoData from '../db.js'
 
-const markCompleted = () => {
+export const handleCompleted = () => {
 	const completedBtns = Array.from(document.querySelectorAll('div[name=completed]') as NodeListOf<HTMLDivElement>)
 	completedBtns.forEach(btn => {
 		btn.addEventListener('click', e => {
@@ -19,4 +19,12 @@ const markCompleted = () => {
 	})
 }
 
-export default markCompleted
+export const handleNewTasks = () => {
+	const newTaskBtn = document.querySelector('div[name=new]') as HTMLDivElement
+	newTaskBtn.addEventListener('click', (e: Event) => {
+		const target = e.target as HTMLDivElement
+		const input = target.parentElement?.firstElementChild as HTMLInputElement
+
+		console.log(input.value)
+	})
+}

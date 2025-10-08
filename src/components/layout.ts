@@ -1,3 +1,4 @@
+import { circleArrowUpIcon } from './icons.js'
 const layout = (header: string, main: string, footer: string): string => {
 	return `
     <header class="sticky-top">
@@ -9,6 +10,11 @@ const layout = (header: string, main: string, footer: string): string => {
     </header>
     <main class="overflow-y-none">
         <div class="container-fluid">
+            <div class="new-task-wrapper px-xl-5 py-4">
+                <div class="new-task d-flex rounded-4 border border-1 pe-3 align-items-center">
+                    <input name="new" id="new" title="Add new todo" class="w-100 bg-transparent px-3 py-3 border-0 rounded-4" placeholder="Add a new task"/>${circleArrowUpIcon()}
+                </div>
+            </div>
             <div class="main-content px-xl-5 py-4 d-grid gap-2">
                 ${main}
             </div>

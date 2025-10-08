@@ -12,6 +12,18 @@ textarea {
 	outline: none;
 	resize: none;
 }
+input[name='new'] {
+	outline: none;
+}
+.new-task {
+	background-color: var(--secondary-color);
+}
+.circle-arrow {
+	color: var(--primary-color);
+}
+.circle-arrow:hover {
+	color: #80bebfaa;
+}
 #app {
 	height: 100dvh;
 }
