@@ -19,7 +19,9 @@ textarea {
 	grid-template-rows: auto 1fr auto;
 	min-height: 100%;
 }
-
+main {
+	min-height: 100%;
+}
 footer,
 header {
 	background-color: var(--primary-color);
@@ -38,5 +40,8 @@ header {
 	}
 	footer {
 		border-radius: 0 0 1rem 1rem;
+	}
+	header {
+		border-radius: 1rem 1rem 0 0;
 	}
 }

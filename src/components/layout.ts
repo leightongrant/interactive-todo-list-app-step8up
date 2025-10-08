@@ -7,14 +7,14 @@ const layout = (header: string, main: string, footer: string): string => {
             </div>
         </div>
     </header>
-    <main class="overflow-y-scroll">
+    <main class="overflow-y-none">
         <div class="container-fluid">
-            <div class="main-content px-5 py-4 d-grid gap-2">
+            <div class="main-content px-xl-5 py-4 d-grid gap-2">
                 ${main}
             </div>
         </div>
     </main>
-    <footer class="sticky-bottom">
+    <footer class="sticky-bottom text-light py-2">
         <div class="container-fluid">
             <div class="footer-content d-flex gap-5 flex-fill">
                 ${footer}
