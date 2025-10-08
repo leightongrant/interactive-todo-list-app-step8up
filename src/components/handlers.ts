@@ -1,4 +1,6 @@
 import todoData from '../db.js'
+import type { TodoData } from '../db.js'
+import generateId from '../utils/generateId.js'
 
 export const handleCompleted = () => {
 	const completedBtns = Array.from(document.querySelectorAll('div[name=completed]') as NodeListOf<HTMLDivElement>)
@@ -25,6 +27,31 @@ export const handleNewTasks = () => {
 		const target = e.target as HTMLDivElement
 		const input = target.parentElement?.firstElementChild as HTMLInputElement
 
-		console.log(input.value)
+		if (!input.value) throw new Error('No new task to save')
+
+		const re = /[a-zA-Z0-9]+/gi
+		const taskTitle = input.value.match(re)?.join(' ')
+
+		if (taskTitle) {
+			const newTask: TodoData = { id: generateId(), title: taskTitle, isCompleted: false, createAt: Date.now() }
+
+			if (!localStorage.getItem('todos')) {
+				localStorage.setItem('todos', JSON.stringify([newTask]))
+				console.log('Saved new todo item')
+				input.value = ''
+				location.reload()
+				return
+			}
+
+			const todoData = localStorage.getItem('todos')
+			if (typeof todoData === 'string') {
+				const newData = JSON.parse(todoData) as TodoData[]
+				newData.push(newTask)
+				localStorage.setItem('todos', JSON.stringify(newData))
+				console.log('Saved new todo item')
+				input.value = ''
+				location.reload()
+			}
+		}
 	})
 }
