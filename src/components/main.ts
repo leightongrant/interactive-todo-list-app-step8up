@@ -10,7 +10,7 @@ const main = (): string => {
 		JSON.parse(todoData).forEach((data: TodoData) => {
 			todoItems += todoItem(data)
 		})
-		return todoItems
+		return `<div class="d-flex flex-column gap-3">${todoItems}</div>`
 	}
 	return noTasks()
 }

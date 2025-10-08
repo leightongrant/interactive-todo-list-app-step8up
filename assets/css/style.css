@@ -40,8 +40,13 @@ footer,
 header {
 	background-color: var(--primary-color);
 }
+.content-wrapper {
+	grid-template-rows: auto 1fr;
+	height: 100%;
+}
 .item-wrapper {
 	background-color: var(--secondary-color);
+	height: 3.875rem;
 }
 @media (min-width: 1200px) {
 	.app-container {
