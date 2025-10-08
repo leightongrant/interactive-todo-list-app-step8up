@@ -1,20 +1,20 @@
 const layout = (header: string, main: string, footer: string): string => {
 	return `
-    <header>
+    <header class="sticky-top">
         <div class="container-fluid">
-            <div class="header-content p-5">
+            <div class="header-content py-2 px-5">
                 ${header}
             </div>
         </div>
     </header>
-    <main>
+    <main class="overflow-y-scroll">
         <div class="container-fluid">
-            <div class="main-content px-5 py-1 d-grid gap-2">
+            <div class="main-content px-5 py-4 d-grid gap-2">
                 ${main}
             </div>
         </div>
     </main>
-    <footer>
+    <footer class="sticky-bottom">
         <div class="container-fluid">
             <div class="footer-content d-flex gap-5 flex-fill">
                 ${footer}
