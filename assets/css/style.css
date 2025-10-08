@@ -9,6 +9,8 @@ body {
 }
 textarea {
 	width: 100%;
+	outline: none;
+	resize: none;
 }
 #app {
 	height: 100dvh;
