@@ -5,9 +5,9 @@ const todoItem = (todo: TodoData) => {
 	return `
     <div class="item-wrapper border border-1 d-flex p-1 rounded-4 align-items-center" id="${todo.id}">
         ${todo.isCompleted ? checkCircleIcon() : circleIcon()}
-        <textarea class="border-0 bg-transparent py-1 px-3 overflow-hidden ${
+        <textarea class="fs-4 text-muted border-0 bg-transparent py-1 px-3 overflow-hidden ${
 			todo.isCompleted && 'text-decoration-line-through'
-		}" rows="1" maxlength="20" readonly id="txtarea-${todo.id}" title="Todo">${todo.title}</textarea>        
+		}" rows="1" readonly id="txtarea-${todo.id}" title="Todo">${todo.title}</textarea>        
         ${editIcon()}
         ${deleteIcon()}
     </div>
