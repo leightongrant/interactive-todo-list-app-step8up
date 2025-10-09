@@ -8,11 +8,16 @@ const todoItem = (todo: TodoData) => {
         <textarea class="border-0 bg-transparent py-1 px-3 overflow-hidden ${
 			todo.isCompleted && 'text-decoration-line-through'
 		}" rows="1" maxlength="20" readonly id="txtarea-${todo.id}" title="Todo">${todo.title}</textarea>        
-        <button type="button" name="edit" class="border-0 bg-transparent fs-2" title="Edit">${editIcon()}</button>
-        <button type="button" name="delete" class="border-0 bg-transparent fs-2" title="Delete">${deleteIcon()}</button>
+        ${editIcon()}
+        ${deleteIcon()}
     </div>
     
     `
 }
 
 export default todoItem
+
+// <button type="button" name="edit" class="border-0 bg-transparent fs-2" title="Edit">
+//</button>
+//<button type="button" name="delete" class="border-0 bg-transparent fs-2" title="Delete">
+//</button>

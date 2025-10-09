@@ -2,7 +2,7 @@ import header from './components/header.js'
 import footer from './components/footer.js'
 import layout from './components/layout.js'
 import main from './components/main.js'
-import { handleCompleted, handleNewTasks } from './components/handlers.js'
+import { handleCompleted, handleNewTasks, handleDelete } from './components/handlers.js'
 
 const app = document.querySelector('#app') as HTMLDivElement
 const appContainer = document.querySelector('.app-container') as HTMLDivElement
@@ -12,3 +12,4 @@ app.append(appContainer)
 
 handleCompleted()
 handleNewTasks()
+handleDelete()

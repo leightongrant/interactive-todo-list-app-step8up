@@ -40,6 +40,14 @@ footer,
 header {
 	background-color: var(--primary-color);
 }
+div[name='delete'],
+div[name='edit'] {
+	transition: all 1s ease;
+}
+div[name='delete']:hover,
+div[name='edit']:hover {
+	transform: scale(1.1);
+}
 .content-wrapper {
 	grid-template-rows: auto 1fr;
 	height: 100%;

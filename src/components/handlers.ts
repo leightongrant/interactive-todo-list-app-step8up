@@ -61,3 +61,21 @@ export const handleNewTasks = () => {
 		}
 	})
 }
+
+export const handleDelete = () => {
+	const deleteBtns = Array.from(document.querySelectorAll('div[name=delete]') as NodeListOf<HTMLButtonElement>)
+	deleteBtns.forEach((btn: HTMLButtonElement) => {
+		btn.addEventListener('click', (e: Event) => {
+			const target = e.target as HTMLDivElement
+			const id = target.parentElement?.id
+			const todoData = localStorage.getItem('todos')
+			if (typeof todoData === 'string') {
+				const dataToDelete = JSON.parse(todoData) as TodoData[]
+				const newData = dataToDelete.filter((todo: TodoData) => todo.id !== id)
+				localStorage.setItem('todos', JSON.stringify(newData))
+				location.reload()
+				console.log('Task deleted')
+			}
+		})
+	})
+}
