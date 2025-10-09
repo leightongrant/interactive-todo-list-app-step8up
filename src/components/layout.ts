@@ -21,7 +21,7 @@ const layout = (header: string, main: string, footer: string): string => {
                 </div>            
         </div>
     </main>
-    <footer class="sticky-bottom text-light py-2">
+    <footer class="sticky-bottom text-light py-4">
         <div class="container-fluid">
             <div class="footer-content d-flex gap-5 flex-fill">
                 ${footer}

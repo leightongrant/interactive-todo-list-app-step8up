@@ -1,18 +1,18 @@
 export const homeIcon = () => {
 	return `
-    <i class="bi bi-house-fill text-light"></i>
+    <div class="bi bi-house-fill text-light d-flex flex-column fs-1" role="button" name="home"><span class="fs-6">Home</span></div>
     `
 }
 
 export const calendarIcon = () => {
 	return `
-     <i class="bi bi-calendar-event-fill text-light"></i>
+     <div class="bi bi-calendar-event-fill text-light d-flex flex-column fs-1" role="button" name="date"><span class="fs-6">Date</span></div>
     `
 }
 
 export const settingsIcon = () => {
 	return `
-    <i class="bi bi-gear-fill text-light"></i>
+    <div class="bi bi-gear-fill text-light d-flex flex-column fs-1" role="button" name="settings"><span class="fs-6">Settings</span></div>
     `
 }
 

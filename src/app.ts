@@ -14,3 +14,10 @@ handleCompleted()
 handleNewTasks()
 handleDelete()
 handleEdit()
+
+const homeButton = document.querySelector('div[name=home]') as HTMLButtonElement
+homeButton.addEventListener('click', () => {
+	const timestamp = Date.now()
+	const today = new Date(timestamp).toLocaleDateString()
+	console.log(today)
+})

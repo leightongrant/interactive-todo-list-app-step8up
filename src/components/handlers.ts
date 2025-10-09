@@ -1,6 +1,7 @@
-// import todoData from '../db.js'
 import type { TodoData } from '../types.js'
 import generateId from '../utils/generateId.js'
+import todoItem from './todoItem.js'
+import noTasks from './noTasks.js'
 
 export const handleCompleted = () => {
 	const completedBtns = Array.from(document.querySelectorAll('div[name=completed]') as NodeListOf<HTMLDivElement>)
@@ -124,4 +125,26 @@ export const handleEdit = () => {
 			}
 		})
 	})
+}
+
+export const renderTasks = (timestamp = Date.now()): string => {
+	let todoData = localStorage.getItem('todos')
+	if (typeof todoData === 'string') {
+		if (JSON.parse(todoData).length === 0) {
+			return noTasks()
+		}
+		let todoItems = ''
+		const date = new Date(timestamp).toLocaleDateString()
+		const todoDataParsed = JSON.parse(todoData) as TodoData[]
+		const filteredData = todoDataParsed.filter((todo: TodoData) => {
+			const taskDate = new Date(todo.createAt).toLocaleDateString()
+			return taskDate === date
+		})
+
+		filteredData.forEach((data: TodoData) => {
+			todoItems += todoItem(data)
+		})
+		return `<div class="d-flex flex-column gap-3">${todoItems}</div>`
+	}
+	return noTasks()
 }
