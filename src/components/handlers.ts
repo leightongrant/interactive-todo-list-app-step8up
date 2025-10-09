@@ -1,5 +1,5 @@
 // import todoData from '../db.js'
-import type { TodoData } from '../db.js'
+import type { TodoData } from '../types.js'
 import generateId from '../utils/generateId.js'
 
 export const handleCompleted = () => {
@@ -39,7 +39,12 @@ export const handleNewTasks = () => {
 		const taskTitle = input.value.match(re)?.join(' ')
 
 		if (taskTitle) {
-			const newTask: TodoData = { id: generateId(), title: taskTitle, isCompleted: false, createAt: Date.now() }
+			const newTask: TodoData = {
+				id: generateId(),
+				title: taskTitle,
+				isCompleted: false,
+				createAt: Date.now(),
+			}
 
 			if (!localStorage.getItem('todos')) {
 				localStorage.setItem('todos', JSON.stringify([newTask]))
@@ -75,6 +80,47 @@ export const handleDelete = () => {
 				localStorage.setItem('todos', JSON.stringify(newData))
 				location.reload()
 				console.log('Task deleted')
+			}
+		})
+	})
+}
+
+export const handleEdit = () => {
+	const editBtns = Array.from(document.querySelectorAll('div[name=edit]') as NodeListOf<HTMLButtonElement>)
+
+	editBtns.forEach((btn: HTMLButtonElement) => {
+		let editMode = false
+		btn.addEventListener('click', (e: Event) => {
+			const target = e.target as HTMLDivElement
+			const id = target.parentElement?.id
+			const nodes = target.parentElement?.childNodes as NodeListOf<ChildNode>
+			const icon = nodes[5] as HTMLDivElement
+			const textarea = nodes[3] as HTMLTextAreaElement
+
+			editMode = !editMode
+
+			if (editMode) {
+				textarea.removeAttribute('readonly')
+				textarea.focus()
+				textarea.setSelectionRange(textarea.value.length, textarea.value.length)
+				icon.classList.remove('bi-pencil-fill')
+				icon.classList.add(...['bi-floppy-fill', 'text-success'])
+				return
+			}
+
+			textarea.setAttribute('readonly', '')
+			icon.classList.remove(...['bi-floppy-fill', 'text-success'])
+			icon.classList.add(...['bi-pencil-fill'])
+			const todoData = localStorage.getItem('todos')
+			if (typeof todoData === 'string') {
+				const todos = JSON.parse(todoData) as TodoData[]
+				const currentTask = todos.find((currentTask: TodoData) => currentTask.id === id) as TodoData
+				const editedTask = { ...currentTask, title: textarea.value }
+				const updatedTodos = todos.filter((todo: TodoData) => todo.id !== id)
+				updatedTodos.push(editedTask)
+				localStorage.setItem('todos', JSON.stringify(updatedTodos))
+				location.reload()
+				console.log('Task saved')
 			}
 		})
 	})

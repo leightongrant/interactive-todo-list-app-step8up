@@ -51,3 +51,9 @@ export const circleArrowUpIcon = () => {
     <div class="bi bi-arrow-up-circle-fill fs-1 circle-arrow rounded-4" role="button" name="new" title="Add New Task"></div>
     `
 }
+
+export const saveIcon = () => {
+	return `
+    <div class="bi bi-floppy-fill text-secondary fs-3" role="button" name="edit" title="Edit Task"></div>
+    `
+}

@@ -1,5 +1,5 @@
-import { circleIcon, editIcon, deleteIcon, checkCircleIcon } from './icons.js'
-import type { TodoData } from '../db.js'
+import { circleIcon, editIcon, deleteIcon, checkCircleIcon, saveIcon } from './icons.js'
+import type { TodoData } from '../types.js'
 
 const todoItem = (todo: TodoData) => {
 	return `
@@ -16,8 +16,3 @@ const todoItem = (todo: TodoData) => {
 }
 
 export default todoItem
-
-// <button type="button" name="edit" class="border-0 bg-transparent fs-2" title="Edit">
-//</button>
-//<button type="button" name="delete" class="border-0 bg-transparent fs-2" title="Delete">
-//</button>
