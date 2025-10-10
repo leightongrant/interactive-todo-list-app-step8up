@@ -3,16 +3,20 @@ export const homeIcon = () => {
     <div class="bi bi-house-fill text-light d-flex flex-column fs-1" role="button" name="home"><span class="fs-6">Home</span></div>
     `
 }
+//<label for="date"><div class="bi bi-calendar-event-fill text-light d-flex flex-column fs-1" role="button" name="date"><span class="fs-6">Date</span></div></label>
+//<input class="" value="2025-10-10" name="date" id="date" type="date" title="Select A date">
 
 export const calendarIcon = () => {
-	return `
-     <div class="bi bi-calendar-event-fill text-light d-flex flex-column fs-1" role="button" name="date"><span class="fs-6">Date</span></div>
+	return `    
+        <div class="bi bi-calendar-event-fill text-light d-flex flex-column fs-1" role="button" name="date" data-bs-toggle="modal" data-bs-target="#dateModal">
+            <span class="fs-6">Date</span>
+        </div>    
     `
 }
 
 export const settingsIcon = () => {
 	return `
-    <div class="bi bi-gear-fill text-light d-flex flex-column fs-1" role="button" name="settings"><span class="fs-6">Settings</span></div>
+    <div class="bi bi-gear-fill text-light d-flex flex-column fs-1" role="button" name="settings" data-bs-toggle="modal" data-bs-target="#settingsModal" ><span class="fs-6">Settings</span></div>
     `
 }
 

@@ -21,3 +21,17 @@ homeButton.addEventListener('click', () => {
 	const today = new Date(timestamp).toLocaleDateString()
 	console.log(today)
 })
+
+const calendar = document.querySelector('div[name=date]') as HTMLButtonElement
+calendar.addEventListener('click', (e: Event) => {})
+
+const settings = document.querySelector('div[name=settings]') as HTMLButtonElement
+settings.addEventListener('click', (e: Event) => {})
+
+//const todoModal = document.querySelector('#todoModal') as HTMLDivElement
+
+const okBtn = document.querySelector('.ok-btn') as HTMLButtonElement
+okBtn.addEventListener('click', (e: Event) => {
+	const target = e.target as HTMLButtonElement
+	console.log(target.dataset)
+})

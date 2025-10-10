@@ -23,6 +23,11 @@ footer,
 header {
 	background-color: var(--primary-color);
 }
+input[name='date'] {
+	background: transparent;
+	outline: none;
+	border: none;
+}
 
 /* App Container */
 #app {
@@ -67,7 +72,8 @@ div[name='edit']:hover {
 
 /* Media Query */
 @media (min-width: 1200px) {
-	.app-container {
+	.app-container,
+	.canvas-container {
 		border-radius: 1rem;
 		max-width: 1140px;
 		margin: auto;
