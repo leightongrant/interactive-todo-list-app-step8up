@@ -1,22 +1,17 @@
 export const settingsModal = () => {
 	return `
-        <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" >
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="settingsModalLabel">Settings</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">                     
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary setting-ok-btn" data-bs-dismiss="modal">OK</button>
-                    </div>        
-                </div>
+    <dialog id="settings-modal" class="rounded-3 border border-2 border-secondary">
+            <div class="modal-header p-3 border-1 border-bottom d-flex justify-content-between align-items-center">
+                <h1 class="fs-6 fw-bold m-0 p-0">Settings</h1><i class="bi bi-x-lg fw-bold" type="button" id="settings-cancel" title="Close Modal"></i>
             </div>
-        </div>
+            <div class="modal-body p-3 d-flex justify-content-around">
+                settings go here
+            </div>
+            <div class="modal-footer p-3">                
+                <i class="bi bi-arrow-right-circle-fill fs-1" type="button" id="settings-confirm" title="Save Settings"></i>
+            </div>
+        
+    </dialog>
     `
 }
 

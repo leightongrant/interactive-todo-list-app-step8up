@@ -1,5 +1,6 @@
 import newTask from './newTask.js'
 import dateModal from './dateModal.js'
+import settingsModal from './settingsModal.js'
 
 const layout = (header: string, footer: string): string => {
 	return `
@@ -20,6 +21,7 @@ const layout = (header: string, footer: string): string => {
             <div class="main-content px-xl-5 py-4 h-100">
             </div>
             ${dateModal()}
+            ${settingsModal()}
                      
         </div>
     </main>
@@ -34,5 +36,4 @@ const layout = (header: string, footer: string): string => {
 `
 }
 
-//  ${settingsModal()}
 export default layout

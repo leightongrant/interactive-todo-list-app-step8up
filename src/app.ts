@@ -9,11 +9,16 @@ appContainer.innerHTML = `${layout(header(), footer())}`
 app.append(appContainer)
 
 const mainContent = document.querySelector('.main-content') as HTMLDivElement
-const calendar = document.querySelector('div[name=date]') as HTMLButtonElement
+const calendarButton = document.querySelector('div[name=date]') as HTMLButtonElement
 const homeButton = document.querySelector('div[name=home]') as HTMLButtonElement
+const settingsButton = document.querySelector('div[name=settings]') as HTMLButtonElement
 const dateModal = document.querySelector('#date-modal') as HTMLDialogElement
+
 const cancelDateDialog = document.querySelector('#date-cancel') as HTMLButtonElement
 const confirmDateDialog = document.querySelector('#date-confirm') as HTMLButtonElement
+const settingsModal = document.querySelector('#settings-modal') as HTMLDialogElement
+const cancelSettingsDialog = document.querySelector('#settings-cancel') as HTMLButtonElement
+const confirmSettingsDialog = document.querySelector('#settings-confirm') as HTMLButtonElement
 
 let timestamp = Date.now()
 const currentDay = localStorage.getItem('day')
@@ -26,6 +31,7 @@ renderMainContent(mainContent, renderTasks(timestamp))
 
 const dateInput = document.querySelector('input[name=date]') as HTMLInputElement
 cancelDateDialog.addEventListener('click', () => dateModal.close())
+cancelSettingsDialog.addEventListener('click', () => settingsModal.close())
 
 confirmDateDialog.addEventListener('click', () => {
 	const [year, month, day] = dateInput.value.split('-')
@@ -35,7 +41,7 @@ confirmDateDialog.addEventListener('click', () => {
 	dateModal.close()
 })
 
-calendar.addEventListener('click', () => {
+calendarButton.addEventListener('click', () => {
 	dateModal.showModal()
 })
 
@@ -45,5 +51,6 @@ homeButton.addEventListener('click', () => {
 	location.reload()
 })
 
-//const settings = document.querySelector('div[name=settings]') as HTMLButtonElement
-//settings.addEventListener('click', (e: Event) => {})
+settingsButton.addEventListener('click', () => {
+	settingsModal.showModal()
+})

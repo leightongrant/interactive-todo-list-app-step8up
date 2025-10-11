@@ -36,7 +36,8 @@ dialog::backdrop {
 	background-color: #00000099;
 }
 
-#date-confirm {
+#date-confirm,
+#settings-confirm {
 	color: var(--primary-color);
 }
 

@@ -17,7 +17,7 @@ export const calendarIcon = () => {
 
 export const settingsIcon = () => {
 	return `
-    <div class="bi bi-gear-fill text-light d-flex flex-column fs-1" role="button" name="settings" data-bs-toggle="modal" data-bs-target="#settingsModal" ><span class="fs-6">Settings</span></div>
+    <div class="bi bi-gear-fill text-light d-flex flex-column fs-1" role="button" name="settings"><span class="fs-6">Settings</span></div>
     `
 }
 
