@@ -2,6 +2,11 @@
 	scroll-behavior: smooth;
 	--primary-color: #80bebf;
 	--secondary-color: #dae1e5;
+	--crimson-color: #6b0a1d;
+}
+
+.crimson {
+	--primary-color: var(--crimson-color);
 }
 /* Elements */
 body {
@@ -67,7 +72,7 @@ input[name='date']::-webkit-calendar-picker-indicator {
 	height: 100dvh;
 }
 .app-container {
-	background: linear-gradient(to bottom, #80bebf, #dae1e5);
+	background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
 	display: grid;
 	grid-template-rows: auto 1fr auto;
 	min-height: 100%;

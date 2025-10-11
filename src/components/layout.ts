@@ -6,7 +6,7 @@ const layout = (header: string, footer: string): string => {
 	return `
     <header class="sticky-top">
         <div class="container-fluid">
-            <div class="header-content py-2 px-5">
+            <div class="header-content py-3 px-5">
                 ${header}
             </div>
         </div>
