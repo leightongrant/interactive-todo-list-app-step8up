@@ -1,7 +1,7 @@
 import { renderTasks } from './handlers.js'
 
-const main = (): string => {
-	return renderTasks()
+const main = (timestamp: number): string => {
+	return renderTasks(timestamp)
 }
 
 export default main

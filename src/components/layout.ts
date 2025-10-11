@@ -1,7 +1,7 @@
 import newTask from './newTask.js'
-import { dateModal, settingsModal } from './modals.js'
+import dateModal from './dateModal.js'
 
-const layout = (header: string, main: string, footer: string): string => {
+const layout = (header: string, footer: string): string => {
 	return `
     <header class="sticky-top">
         <div class="container-fluid">
@@ -18,10 +18,9 @@ const layout = (header: string, main: string, footer: string): string => {
                 </div>
             </div>            
             <div class="main-content px-xl-5 py-4 h-100">
-                ${main}
             </div>
             ${dateModal()}
-            ${settingsModal()}            
+                     
         </div>
     </main>
     <footer class="sticky-bottom text-light py-4">
@@ -34,4 +33,6 @@ const layout = (header: string, main: string, footer: string): string => {
 
 `
 }
+
+//  ${settingsModal()}
 export default layout

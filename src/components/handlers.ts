@@ -130,9 +130,8 @@ export const handleEdit = () => {
 export const renderTasks = (timestamp = Date.now()): string => {
 	let todoData = localStorage.getItem('todos')
 	if (typeof todoData === 'string') {
-		if (JSON.parse(todoData).length === 0) {
-			return noTasks()
-		}
+		if (JSON.parse(todoData).length === 0) return noTasks()
+
 		let todoItems = ''
 		const date = new Date(timestamp).toLocaleDateString()
 		const todoDataParsed = JSON.parse(todoData) as TodoData[]
@@ -141,10 +140,22 @@ export const renderTasks = (timestamp = Date.now()): string => {
 			return taskDate === date
 		})
 
+		if (filteredData.length === 0) return noTasks()
+
 		filteredData.forEach((data: TodoData) => {
 			todoItems += todoItem(data)
 		})
+
 		return `<div class="d-flex flex-column gap-3">${todoItems}</div>`
 	}
 	return noTasks()
+}
+
+export const renderMainContent = (container: HTMLDivElement, content: string) => {
+	container.innerHTML = ''
+	container.innerHTML = content
+	handleCompleted()
+	handleDelete()
+	handleEdit()
+	handleNewTasks()
 }

@@ -5,10 +5,11 @@ export const homeIcon = () => {
 }
 //<label for="date"><div class="bi bi-calendar-event-fill text-light d-flex flex-column fs-1" role="button" name="date"><span class="fs-6">Date</span></div></label>
 //<input class="" value="2025-10-10" name="date" id="date" type="date" title="Select A date">
+//data-bs-toggle="modal" data-bs-target="#dateModal"
 
 export const calendarIcon = () => {
 	return `    
-        <div class="bi bi-calendar-event-fill text-light d-flex flex-column fs-1" role="button" name="date" data-bs-toggle="modal" data-bs-target="#dateModal">
+        <div class="bi bi-calendar-event-fill text-light d-flex flex-column fs-1" role="button" name="date" >
             <span class="fs-6">Date</span>
         </div>    
     `
