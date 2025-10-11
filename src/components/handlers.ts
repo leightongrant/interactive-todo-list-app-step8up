@@ -28,6 +28,11 @@ export const handleCompleted = () => {
 	})
 }
 
+export const setCurrentDay = (timestamp: number) => {
+	const currentDaySpan = document.querySelector('.current-day') as HTMLSpanElement
+	currentDaySpan.innerText = ''
+}
+
 export const handleNewTasks = () => {
 	const newTaskBtn = document.querySelector('div[name=new]') as HTMLDivElement
 	newTaskBtn.addEventListener('click', (e: Event) => {
@@ -128,6 +133,9 @@ export const handleEdit = () => {
 }
 
 export const renderTasks = (timestamp = Date.now()): string => {
+	const currentDaySpan = document.querySelector('.current-day') as HTMLSpanElement
+	currentDaySpan.innerText = new Date(timestamp).toDateString()
+
 	let todoData = localStorage.getItem('todos')
 	if (typeof todoData === 'string') {
 		if (JSON.parse(todoData).length === 0) return noTasks()
