@@ -1,12 +1,21 @@
 :root {
 	scroll-behavior: smooth;
 	--primary-color: #80bebf;
+	--primary-shadow: #80bebf66;
 	--secondary-color: #dae1e5;
 	--crimson-color: #6b0a1d;
+	--crimson-shadow: #6b0a1d66;
+	--hot-pink-color: #ff69b4;
+	--hot-pink-shadow: #ff69b466;
 }
 
 .crimson {
 	--primary-color: var(--crimson-color);
+	--primary-shadow: var(--crimson-shadow);
+}
+.hot-pink {
+	--primary-color: var(--hot-pink-color);
+	--primary-shadow: var(--hot-pink-shadow);
 }
 /* Elements */
 body {
@@ -46,6 +55,13 @@ dialog::backdrop {
 	color: var(--primary-color);
 }
 
+#settings-modal,
+#date-modal {
+	width: 500px;
+}
+
+/* Settings */
+
 /* Date Picker */
 input[name='date'] {
 	font-weight: 500;
@@ -55,12 +71,12 @@ input[name='date'] {
 	border-radius: 0.5rem;
 	padding: 0.5rem 1rem;
 	transition: border-color 0.3s ease, box-shadow 0.3s ease;
-	width: 500px;
+	width: 100%;
 }
 
 input[name='date']:focus {
 	border-color: var(--primary-color);
-	box-shadow: 0 0 0 0.25rem #80bebf66;
+	box-shadow: 0 0 0 0.25rem var(--primary-shadow);
 	outline: none;
 }
 input[name='date']::-webkit-calendar-picker-indicator {
