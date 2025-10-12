@@ -24,6 +24,18 @@ export const settingsModal = () => {
                             Hot Pink
                         </label>
                     </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="theme" id="midnight-blue" value="midnight-blue" title="Select Midnight Blue Theme">
+                        <label class="form-check-label" for="midnight-blue">
+                            Midnight Blue
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="theme" id="dark" value="dark" title="Select Dark Theme">
+                        <label class="form-check-label" for="dark">
+                            Dark
+                        </label>
+                    </div>
                 </div>
             </form>
             <div class="modal-footer p-3">                

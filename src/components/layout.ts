@@ -14,7 +14,7 @@ const layout = (header: string, footer: string): string => {
     <main class="overflow-y-none">
         <div class="container-fluid d-grid content-wrapper">
             <div class="new-task-wrapper px-xl-5 py-4">
-                <div class="new-task d-flex rounded-4 border border-1 pe-3 align-items-center">
+                <div class="new-task d-flex rounded-4 pe-3 align-items-center">
                     ${newTask()}
                 </div>
             </div>            

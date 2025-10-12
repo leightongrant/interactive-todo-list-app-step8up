@@ -7,6 +7,10 @@
 	--crimson-shadow: #6b0a1d66;
 	--hot-pink-color: #ff69b4;
 	--hot-pink-shadow: #ff69b466;
+	--dark-color: #212529;
+	--dark-color-shadow: #21252966;
+	--midnight-blue-color: #003366;
+	--midnight-blue-color-shadow: #00336666;
 }
 
 .crimson {
@@ -16,6 +20,14 @@
 .hot-pink {
 	--primary-color: var(--hot-pink-color);
 	--primary-shadow: var(--hot-pink-shadow);
+}
+.midnight-blue {
+	--primary-color: var(--midnight-blue-color);
+	--primary-shadow: var(--midnight-blue-color-shadow);
+}
+.dark {
+	--primary-color: var(--dark-color);
+	--primary-shadow: var(--dark-color-shadow);
 }
 /* Elements */
 body {
@@ -102,6 +114,7 @@ input[name='date']::-webkit-calendar-picker-indicator {
 /* Tasks */
 .new-task {
 	background-color: var(--secondary-color);
+	border: 2px solid var(--primary-color);
 }
 .circle-arrow {
 	color: var(--primary-color);
@@ -122,15 +135,17 @@ div[name='edit']:hover {
 .item-wrapper {
 	background-color: var(--secondary-color);
 	height: 3.875rem;
+	border: 2px solid var(--primary-color);
 }
 
 /* Media Query */
 @media (min-width: 1200px) {
 	.app-container,
 	.canvas-container {
-		border-radius: 1rem;
+		border-radius: 1.25rem;
 		max-width: 1140px;
 		margin: auto;
+		border: 2px solid var(--primary-color);
 	}
 	#app {
 		padding-block: 2rem;

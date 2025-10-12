@@ -3,7 +3,7 @@ import type { TodoData } from '../types.js'
 
 const todoItem = (todo: TodoData) => {
 	return `
-    <div class="item-wrapper border border-1 d-flex p-1 rounded-4 align-items-center" id="${todo.id}">
+    <div class="item-wrapper d-flex p-1 rounded-4 align-items-center" id="${todo.id}">
         ${todo.isCompleted ? checkCircleIcon() : circleIcon()}
         <textarea class="fs-4 text-muted border-0 bg-transparent py-1 px-3 overflow-hidden ${
 			todo.isCompleted && 'text-decoration-line-through'
