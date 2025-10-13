@@ -73,22 +73,17 @@ export const handleNewTasks = () => {
 	})
 }
 
-export const handleDelete = () => {
-	const deleteBtns = Array.from(document.querySelectorAll('div[name=delete]') as NodeListOf<HTMLButtonElement>)
-	deleteBtns.forEach((btn: HTMLButtonElement) => {
-		btn.addEventListener('click', (e: Event) => {
-			const target = e.target as HTMLDivElement
-			const id = target.parentElement?.id
-			const todoData = localStorage.getItem('todos')
-			if (typeof todoData === 'string') {
-				const dataToDelete = JSON.parse(todoData) as TodoData[]
-				const newData = dataToDelete.filter((todo: TodoData) => todo.id !== id)
-				localStorage.setItem('todos', JSON.stringify(newData))
-				location.reload()
-				console.log('Task deleted')
-			}
-		})
-	})
+export const handleDelete = (id: string) => {
+	try {
+		const todoData = localStorage.getItem('todos')
+		if (!todoData) throw new Error('Todo data not found in localstorage')
+		const data = JSON.parse(todoData) as TodoData[]
+		const newData = data.filter((todo: TodoData) => todo.id !== id)
+		localStorage.setItem('todos', JSON.stringify(newData))
+		location.reload()
+	} catch (error: any) {
+		console.log(error.message)
+	}
 }
 
 export const handleEdit = () => {
@@ -163,7 +158,7 @@ export const renderMainContent = (container: HTMLDivElement, content: string) =>
 	container.innerHTML = ''
 	container.innerHTML = content
 	handleCompleted()
-	handleDelete()
+	// handleDelete()
 	handleEdit()
 	handleNewTasks()
 }

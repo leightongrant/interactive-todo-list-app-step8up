@@ -33,15 +33,15 @@ export const circleIcon = () => {
     `
 }
 
-export const editIcon = () => {
+export const editIcon = (id: string) => {
 	return `
-    <div class="bi bi-pencil-fill text-secondary fs-3" role="button" name="edit" title="Edit Task"></div>
+    <div class="bi bi-pencil-fill text-secondary fs-3" role="button" id="${id}" name="edit" title="Edit Task"></div>
     `
 }
 
-export const deleteIcon = () => {
+export const deleteIcon = (id: string) => {
 	return `
-    <div class="bi bi-trash text-danger fs-3 mx-3" role="button" name="delete" title="Delete Task"></div>
+    <div class="bi bi-trash text-danger fs-3 mx-3" role="button" id="${id}" name="delete" title="Delete Task"></div>
     `
 }
 

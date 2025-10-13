@@ -1,7 +1,8 @@
 import header from './components/header.js'
 import footer from './components/footer.js'
 import layout from './components/layout.js'
-import { renderMainContent, renderTasks } from './components/handlers.js'
+import { renderMainContent, renderTasks, handleDelete } from './components/handlers.js'
+declare const bootstrap: any
 
 const app = document.querySelector('#app') as HTMLDivElement
 const appContainer = document.querySelector('.app-container') as HTMLDivElement
@@ -65,6 +66,7 @@ confirmDateDialog.addEventListener('click', () => {
 	localStorage.setItem('day', selectedTimestamp.toString())
 	renderMainContent(mainContent, renderTasks(selectedTimestamp))
 	dateModal.close()
+	location.reload()
 })
 
 confirmSettingsDialog.addEventListener('click', () => {
@@ -75,4 +77,50 @@ settingsForm.addEventListener('submit', (e: Event) => {
 	const target = e.target as HTMLFormElement
 	localStorage.setItem('theme', target.theme.value)
 	location.replace('/')
+})
+
+// Delete Tasks
+const deleteBtns = document.querySelectorAll('div[name=delete]') as NodeListOf<HTMLButtonElement>
+deleteBtns.forEach(btn => {
+	btn.addEventListener('click', (e: Event) => {
+		try {
+			const target = e.target as HTMLButtonElement
+			if (!target) throw new Error('Button element not found!')
+			const id = target.id
+
+			const popover = new bootstrap.Popover(btn, {
+				animation: true,
+				content: `<button class="bi bi-check btn btn-outline-secondary btn-sm" type="button" name="cancel-delete">cancel</button><button class="bi bi-check btn btn-outline-warning btn-sm" type="button" name="confirm-delete" id="${id}">Delete?</button>`,
+				delay: { show: 0, hide: 0 },
+				html: true,
+				allowList: {
+					...bootstrap.Tooltip.Default.allowList,
+					button: ['type', 'class', 'onclick', 'role', 'aria-label', 'name', 'id'],
+				},
+				trigger: 'manual',
+				position: 'top',
+			})
+
+			popover.show()
+
+			const handleClick = (e: Event) => {
+				const target = e.target as HTMLButtonElement
+				if (target) {
+					if (target.name === 'confirm-delete') {
+						handleDelete(target.id)
+						document.removeEventListener('click', handleClick)
+						popover.hide()
+					}
+
+					if (target.name === 'cancel-delete') {
+						document.removeEventListener('click', handleClick)
+						popover.hide()
+					}
+				}
+			}
+			document.addEventListener('click', handleClick)
+		} catch (error: any) {
+			console.log(error.message)
+		}
+	})
 })
