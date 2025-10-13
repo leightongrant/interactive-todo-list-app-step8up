@@ -158,7 +158,6 @@ export const renderMainContent = (container: HTMLDivElement, content: string) =>
 	container.innerHTML = ''
 	container.innerHTML = content
 	handleCompleted()
-	// handleDelete()
 	handleEdit()
 	handleNewTasks()
 }

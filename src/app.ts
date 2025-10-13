@@ -53,6 +53,7 @@ const settingsModal = document.querySelector('#settings-modal') as HTMLDialogEle
 const cancelSettingsDialog = document.querySelector('#settings-cancel') as HTMLButtonElement
 const confirmSettingsDialog = document.querySelector('#settings-confirm') as HTMLButtonElement
 const settingsForm = document.querySelector('.settings-form') as HTMLFormElement
+const dateInput = document.querySelector('input[name=date]') as HTMLInputElement
 
 // Launch Date Picker
 calendarButton.addEventListener('click', () => {
@@ -64,78 +65,89 @@ homeButton.addEventListener('click', () => {
 	const timestamp = Date.now()
 	localStorage.setItem('day', timestamp.toString())
 	renderMainContent(mainContent, renderTasks(timestamp))
+	deleteTask()
+})
+
+// Close Date Picker
+cancelDateDialog.addEventListener('click', () => dateModal.close())
+
+// Confirm Date Pick and re-render page
+confirmDateDialog.addEventListener('click', () => {
+	const [year, month, day] = dateInput.value.split('-')
+	const selectedTimestamp = new Date(parseInt(year), parseInt(month) - 1, parseInt(day)).getTime()
+	localStorage.setItem('day', selectedTimestamp.toString())
+	renderMainContent(mainContent, renderTasks(selectedTimestamp))
+	deleteTask()
+	dateModal.close()
 })
 
 // Launch Settings
 settingsButton.addEventListener('click', () => {
 	settingsModal.showModal()
 })
-
-const dateInput = document.querySelector('input[name=date]') as HTMLInputElement
-cancelDateDialog.addEventListener('click', () => dateModal.close())
+// Close Settings
 cancelSettingsDialog.addEventListener('click', () => settingsModal.close())
 
-confirmDateDialog.addEventListener('click', () => {
-	const [year, month, day] = dateInput.value.split('-')
-	const selectedTimestamp = new Date(parseInt(year), parseInt(month) - 1, parseInt(day)).getTime()
-	localStorage.setItem('day', selectedTimestamp.toString())
-	renderMainContent(mainContent, renderTasks(selectedTimestamp))
-	dateModal.close()
-	location.reload()
-})
-
+// Confirm and save settings. Updates interface to new theme
 confirmSettingsDialog.addEventListener('click', () => {
 	settingsForm.requestSubmit()
 })
 settingsForm.addEventListener('submit', (e: Event) => {
 	e.preventDefault()
 	const target = e.target as HTMLFormElement
-	localStorage.setItem('theme', target.theme.value)
-	location.replace('/')
+	const themeName = target.theme.value
+	body.removeAttribute('class')
+	body.classList.add(target.theme.value)
+	localStorage.setItem('theme', themeName)
+	settingsModal.close()
 })
 
 // Delete Tasks
-const deleteBtns = document.querySelectorAll('div[name=delete]') as NodeListOf<HTMLButtonElement>
-deleteBtns.forEach(btn => {
-	btn.addEventListener('click', (e: Event) => {
-		try {
-			const target = e.target as HTMLButtonElement
-			if (!target) throw new Error('Button element not found!')
-			const id = target.id
-
-			const popover = new bootstrap.Popover(btn, {
-				animation: true,
-				content: `<button class="bi bi-check btn btn-outline-secondary btn-sm" type="button" name="cancel-delete">cancel</button><button class="bi bi-check btn btn-outline-warning btn-sm" type="button" name="confirm-delete" id="${id}">Delete?</button>`,
-				delay: { show: 0, hide: 0 },
-				html: true,
-				allowList: {
-					...bootstrap.Tooltip.Default.allowList,
-					button: ['type', 'class', 'onclick', 'role', 'aria-label', 'name', 'id'],
-				},
-				trigger: 'manual',
-				position: 'top',
-			})
-
-			popover.show()
-
-			const handleClick = (e: Event) => {
+const deleteTask = () => {
+	const deleteBtns = document.querySelectorAll('div[name=delete]') as NodeListOf<HTMLButtonElement>
+	deleteBtns.forEach(btn => {
+		btn.addEventListener('click', (e: Event) => {
+			try {
 				const target = e.target as HTMLButtonElement
-				if (target) {
-					if (target.name === 'confirm-delete') {
-						handleDelete(target.id)
-						document.removeEventListener('click', handleClick)
-						popover.hide()
-					}
+				if (!target) throw new Error('Button element not found!')
+				const id = target.id
 
-					if (target.name === 'cancel-delete') {
-						document.removeEventListener('click', handleClick)
-						popover.hide()
+				const popover = new bootstrap.Popover(btn, {
+					animation: true,
+					content: `<button class="bi bi-check btn btn-outline-secondary btn-sm" type="button" name="cancel-delete">cancel</button><button class="bi bi-check btn btn-outline-warning btn-sm" type="button" name="confirm-delete" id="${id}">Delete?</button>`,
+					delay: { show: 0, hide: 0 },
+					html: true,
+					allowList: {
+						...bootstrap.Tooltip.Default.allowList,
+						button: ['type', 'class', 'onclick', 'role', 'aria-label', 'name', 'id'],
+					},
+					trigger: 'manual',
+					position: 'top',
+				})
+
+				popover.show()
+
+				const handleClick = (e: Event) => {
+					const target = e.target as HTMLButtonElement
+					if (target) {
+						if (target.name === 'confirm-delete') {
+							handleDelete(target.id)
+							document.removeEventListener('click', handleClick)
+							popover.hide()
+						}
+
+						if (target.name === 'cancel-delete') {
+							document.removeEventListener('click', handleClick)
+							popover.hide()
+						}
 					}
 				}
+				document.addEventListener('click', handleClick)
+			} catch (error: any) {
+				console.log(error.message)
 			}
-			document.addEventListener('click', handleClick)
-		} catch (error: any) {
-			console.log(error.message)
-		}
+		})
 	})
-})
+}
+
+deleteTask()

@@ -12,7 +12,11 @@
 	--midnight-blue-color: #003366;
 	--midnight-blue-color-shadow: #00336666;
 }
-
+.default {
+	--primary-color: #80bebf;
+	--primary-shadow: #80bebf66;
+	--secondary-color: #dae1e5;
+}
 .crimson {
 	--primary-color: var(--crimson-color);
 	--primary-shadow: var(--crimson-shadow);
