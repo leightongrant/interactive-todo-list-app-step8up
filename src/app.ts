@@ -9,12 +9,44 @@ const appContainer = document.querySelector('.app-container') as HTMLDivElement
 appContainer.innerHTML = `${layout(header(), footer())}`
 app.append(appContainer)
 
+let timestamp = Date.now()
 const mainContent = document.querySelector('.main-content') as HTMLDivElement
+const body = document.querySelector('body') as HTMLBodyElement
+
+// Set Theme
+try {
+	const themeName = localStorage.getItem('theme')
+	if (!themeName || themeName === 'default') {
+		body.removeAttribute('class')
+	} else {
+		body.classList.add(themeName)
+	}
+} catch (error: any) {
+	console.log(error.message)
+}
+
+// Set Date
+try {
+	const savedDay = localStorage.getItem('day')
+	if (!savedDay) {
+		timestamp = Date.now()
+	}
+	if (typeof savedDay === 'string') {
+		timestamp = parseInt(savedDay)
+		renderMainContent(mainContent, renderTasks(timestamp))
+	}
+} catch (error: any) {
+	console.log(error.message)
+}
+
+// Render Content
+renderMainContent(mainContent, renderTasks(timestamp))
+
+// Main Buttons
 const calendarButton = document.querySelector('div[name=date]') as HTMLButtonElement
 const homeButton = document.querySelector('div[name=home]') as HTMLButtonElement
 const settingsButton = document.querySelector('div[name=settings]') as HTMLButtonElement
 const dateModal = document.querySelector('#date-modal') as HTMLDialogElement
-const bodyElement = document.querySelector('body') as HTMLBodyElement
 const cancelDateDialog = document.querySelector('#date-cancel') as HTMLButtonElement
 const confirmDateDialog = document.querySelector('#date-confirm') as HTMLButtonElement
 const settingsModal = document.querySelector('#settings-modal') as HTMLDialogElement
@@ -22,36 +54,19 @@ const cancelSettingsDialog = document.querySelector('#settings-cancel') as HTMLB
 const confirmSettingsDialog = document.querySelector('#settings-confirm') as HTMLButtonElement
 const settingsForm = document.querySelector('.settings-form') as HTMLFormElement
 
-const themeName = localStorage.getItem('theme')
-if (typeof themeName === 'string') {
-	if (themeName === 'default') {
-		bodyElement.removeAttribute('class')
-	} else {
-		bodyElement.classList.add(themeName)
-	}
-} else {
-	bodyElement.removeAttribute('class')
-}
-
-let timestamp = Date.now()
-const currentDay = localStorage.getItem('day')
-if (typeof currentDay === 'string') {
-	timestamp = parseInt(currentDay)
-	renderMainContent(mainContent, renderTasks(timestamp))
-}
-
-renderMainContent(mainContent, renderTasks(timestamp))
-
+// Launch Date Picker
 calendarButton.addEventListener('click', () => {
 	dateModal.showModal()
 })
 
+// Home Button - Sets date to current day
 homeButton.addEventListener('click', () => {
 	const timestamp = Date.now()
 	localStorage.setItem('day', timestamp.toString())
-	location.reload()
+	renderMainContent(mainContent, renderTasks(timestamp))
 })
 
+// Launch Settings
 settingsButton.addEventListener('click', () => {
 	settingsModal.showModal()
 })

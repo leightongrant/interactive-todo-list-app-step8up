@@ -1,15 +1,12 @@
 export const homeIcon = () => {
 	return `
-    <div class="bi bi-house-fill text-light d-flex flex-column fs-1" role="button" name="home"><span class="fs-6">Home</span></div>
+    <div class="bi bi-house-fill text-light d-flex flex-column fs-1" role="button" name="home" title="Go To Current Day"><span class="fs-6">Home</span></div>
     `
 }
-//<label for="date"><div class="bi bi-calendar-event-fill text-light d-flex flex-column fs-1" role="button" name="date"><span class="fs-6">Date</span></div></label>
-//<input class="" value="2025-10-10" name="date" id="date" type="date" title="Select A date">
-//data-bs-toggle="modal" data-bs-target="#dateModal"
 
 export const calendarIcon = () => {
 	return `    
-        <div class="bi bi-calendar-event-fill text-light d-flex flex-column fs-1" role="button" name="date" >
+        <div class="bi bi-calendar-event-fill text-light d-flex flex-column fs-1" role="button" name="date" title="Pick A Date">
             <span class="fs-6">Date</span>
         </div>    
     `
@@ -17,7 +14,7 @@ export const calendarIcon = () => {
 
 export const settingsIcon = () => {
 	return `
-    <div class="bi bi-gear-fill text-light d-flex flex-column fs-1" role="button" name="settings"><span class="fs-6">Settings</span></div>
+    <div class="bi bi-gear-fill text-light d-flex flex-column fs-1" role="button" name="settings" title="Change Settings"><span class="fs-6">Settings</span></div>
     `
 }
 
@@ -47,7 +44,7 @@ export const deleteIcon = (id: string) => {
 
 export const database = () => {
 	return `
-    <i class="bi bi-database fs-1 d-block"></i>
+    <i class="bi bi-database fs-1 d-block" title="No Tasks For Today"></i>
     `
 }
 
@@ -59,6 +56,6 @@ export const circleArrowUpIcon = () => {
 
 export const saveIcon = () => {
 	return `
-    <div class="bi bi-floppy-fill text-secondary fs-3" role="button" name="edit" title="Edit Task"></div>
+    <div class="bi bi-floppy-fill text-secondary fs-3" role="button" name="edit" title="Save Task"></div>
     `
 }
