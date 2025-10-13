@@ -33,24 +33,27 @@ export const setCurrentDay = (timestamp: number) => {
 	currentDaySpan.innerText = ''
 }
 
-export const handleNewTasks = () => {
-	const newTaskBtn = document.querySelector('div[name=new]') as HTMLDivElement
-	newTaskBtn.addEventListener('click', (e: Event) => {
-		const target = e.target as HTMLDivElement
-		const input = target.parentElement?.firstElementChild as HTMLInputElement
+export const saveNewTask = (title: string) => {
+	const newTask: TodoData = {
+		id: generateId(),
+		title: title,
+		isCompleted: false,
+		createAt: Date.now(),
+	}
 
-		if (!input.value) throw new Error('No new task to save')
-
-		const re = /[a-zA-Z0-9]+/gi
-		const taskTitle = input.value.match(re)?.join(' ')
-
-		if (taskTitle) {
-			const newTask: TodoData = {
-				id: generateId(),
-				title: taskTitle,
-				isCompleted: false,
-				createAt: Date.now(),
-			}
+	try {
+		const todoData = localStorage.getItem('todos')
+		if (!todoData) {
+			localStorage.setItem('todos', JSON.stringify([newTask]))
+			return
+		}
+		const data = JSON.parse(todoData) as TodoData[]
+		data.push(newTask)
+		localStorage.setItem('todos', JSON.stringify(data))
+	} catch (error: any) {
+		console.log(error.message)
+	}
+	/*
 
 			if (!localStorage.getItem('todos')) {
 				localStorage.setItem('todos', JSON.stringify([newTask]))
@@ -69,8 +72,7 @@ export const handleNewTasks = () => {
 				input.value = ''
 				location.reload()
 			}
-		}
-	})
+		*/
 }
 
 export const handleDelete = (id: string) => {
@@ -131,5 +133,5 @@ export const renderMainContent = (container: HTMLDivElement, content: string) =>
 	container.innerHTML = ''
 	container.innerHTML = content
 	handleCompleted()
-	handleNewTasks()
+	// handleNewTasks()
 }

@@ -64,6 +64,7 @@ textarea {
 input[name='new'] {
 	outline: none;
 }
+
 main {
 	min-height: 100%;
 }

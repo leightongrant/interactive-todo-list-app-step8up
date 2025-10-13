@@ -1,7 +1,7 @@
 import header from './components/header.js'
 import footer from './components/footer.js'
 import layout from './components/layout.js'
-import { renderMainContent, renderTasks, handleDelete, handleSave } from './components/handlers.js'
+import { renderMainContent, renderTasks, handleDelete, handleSave, saveNewTask } from './components/handlers.js'
 declare const bootstrap: any
 
 const app = document.querySelector('#app') as HTMLDivElement
@@ -16,8 +16,8 @@ const body = document.querySelector('body') as HTMLBodyElement
 // Set Theme
 try {
 	const themeName = localStorage.getItem('theme')
-	if (!themeName || themeName === 'default') {
-		body.removeAttribute('class')
+	if (!themeName) {
+		body.classList.add('default')
 	} else {
 		body.classList.add(themeName)
 	}
@@ -54,7 +54,8 @@ const cancelSettingsDialog = document.querySelector('#settings-cancel') as HTMLB
 const confirmSettingsDialog = document.querySelector('#settings-confirm') as HTMLButtonElement
 const settingsForm = document.querySelector('.settings-form') as HTMLFormElement
 const dateInput = document.querySelector('input[name=date]') as HTMLInputElement
-const editBtns = document.querySelectorAll('div[name=edit]') as NodeListOf<HTMLButtonElement>
+const newTaskBtn = document.querySelector('div[name=new]') as HTMLDivElement
+const newTaskInput = document.querySelector('#new') as HTMLInputElement
 
 // Launch Date Picker
 calendarButton.addEventListener('click', () => {
@@ -135,6 +136,7 @@ const deleteTask = () => {
 							handleDelete(target.id)
 							renderMainContent(mainContent, renderTasks(timestamp))
 							deleteTask()
+							editTask()
 							document.removeEventListener('click', handleClick)
 							popover.hide()
 						}
@@ -154,32 +156,73 @@ const deleteTask = () => {
 }
 
 // Edit Tasks
-editBtns.forEach((btn: HTMLButtonElement) => {
-	let editMode = false
-	btn.addEventListener('click', (e: Event) => {
-		const target = e.target as HTMLDivElement
-		const id = target.id
-		const nodes = target.parentElement?.childNodes as NodeListOf<HTMLElement>
-		const icon = nodes[5] as HTMLDivElement
-		const textarea = nodes[3] as HTMLTextAreaElement
+const editTask = () => {
+	const editBtns = document.querySelectorAll('div[name=edit]') as NodeListOf<HTMLButtonElement>
+	editBtns.forEach((btn: HTMLButtonElement) => {
+		let editMode = false
+		btn.addEventListener('click', (e: Event) => {
+			const target = e.target as HTMLDivElement
+			const id = target.id
+			const nodes = target.parentElement?.childNodes as NodeListOf<HTMLElement>
+			const icon = nodes[5] as HTMLDivElement
+			const textarea = nodes[3] as HTMLTextAreaElement
 
-		editMode = !editMode
+			editMode = !editMode
 
-		if (editMode) {
-			textarea.removeAttribute('readonly')
-			textarea.focus()
-			textarea.setSelectionRange(textarea.value.length, textarea.value.length)
-			icon.classList.remove('bi-pencil-fill')
-			icon.classList.add(...['bi-floppy-fill', 'text-info'])
-			return
-		}
+			if (editMode) {
+				textarea.removeAttribute('readonly')
+				textarea.focus()
+				textarea.setSelectionRange(textarea.value.length, textarea.value.length)
+				icon.classList.remove('bi-pencil-fill')
+				icon.classList.add(...['bi-floppy-fill', 'text-info'])
+				return
+			}
 
-		textarea.setAttribute('readonly', '')
-		icon.classList.remove(...['bi-floppy-fill', 'text-info'])
-		icon.classList.add(...['bi-pencil-fill'])
-
-		handleSave(id, textarea.value)
+			textarea.setAttribute('readonly', '')
+			icon.classList.remove(...['bi-floppy-fill', 'text-info'])
+			icon.classList.add(...['bi-pencil-fill'])
+			handleSave(id, textarea.value)
+		})
 	})
+}
+
+// Save new tasks
+newTaskBtn.addEventListener('click', () => {
+	try {
+		//Checks for invalid input before creating new tasks
+		const newTask = newTaskInput.value
+		if (!newTask) throw new Error('Please enter a new task')
+		const re = /[a-zA-Z0-9]+/gi
+		const taskTitle = newTask.match(re)?.join(' ')
+		if (!taskTitle) throw new Error('Invalid title, only text and number allowed')
+		saveNewTask(taskTitle)
+		newTaskInput.value = ''
+		renderMainContent(mainContent, renderTasks(timestamp))
+		deleteTask()
+		editTask()
+	} catch (error: any) {
+		// Provides feedback on placeholder
+		const style = document.querySelector('style') as HTMLStyleElement
+		if (style) {
+			const re = /placeholder/gi
+			if (re.test(style.innerHTML)) return
+			style.innerHTML += `#new::placeholder {
+		 		color: red;
+		 		opacity: 1;
+		 	}`
+		} else {
+			const style = document.createElement('style')
+			style.innerHTML = `
+			#new::placeholder {
+				color: red;
+				opacity: 1;
+			}`
+			document.head.appendChild(style)
+		}
+		newTaskInput.placeholder = error.message
+		console.log(error.message)
+	}
 })
 
+editTask()
 deleteTask()
