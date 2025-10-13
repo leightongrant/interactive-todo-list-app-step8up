@@ -1,7 +1,7 @@
 import header from './components/header.js'
 import footer from './components/footer.js'
 import layout from './components/layout.js'
-import { renderMainContent, renderTasks, handleDelete } from './components/handlers.js'
+import { renderMainContent, renderTasks, handleDelete, handleSave } from './components/handlers.js'
 declare const bootstrap: any
 
 const app = document.querySelector('#app') as HTMLDivElement
@@ -54,6 +54,7 @@ const cancelSettingsDialog = document.querySelector('#settings-cancel') as HTMLB
 const confirmSettingsDialog = document.querySelector('#settings-confirm') as HTMLButtonElement
 const settingsForm = document.querySelector('.settings-form') as HTMLFormElement
 const dateInput = document.querySelector('input[name=date]') as HTMLInputElement
+const editBtns = document.querySelectorAll('div[name=edit]') as NodeListOf<HTMLButtonElement>
 
 // Launch Date Picker
 calendarButton.addEventListener('click', () => {
@@ -151,5 +152,34 @@ const deleteTask = () => {
 		})
 	})
 }
+
+// Edit Tasks
+editBtns.forEach((btn: HTMLButtonElement) => {
+	let editMode = false
+	btn.addEventListener('click', (e: Event) => {
+		const target = e.target as HTMLDivElement
+		const id = target.id
+		const nodes = target.parentElement?.childNodes as NodeListOf<HTMLElement>
+		const icon = nodes[5] as HTMLDivElement
+		const textarea = nodes[3] as HTMLTextAreaElement
+
+		editMode = !editMode
+
+		if (editMode) {
+			textarea.removeAttribute('readonly')
+			textarea.focus()
+			textarea.setSelectionRange(textarea.value.length, textarea.value.length)
+			icon.classList.remove('bi-pencil-fill')
+			icon.classList.add(...['bi-floppy-fill', 'text-info'])
+			return
+		}
+
+		textarea.setAttribute('readonly', '')
+		icon.classList.remove(...['bi-floppy-fill', 'text-info'])
+		icon.classList.add(...['bi-pencil-fill'])
+
+		handleSave(id, textarea.value)
+	})
+})
 
 deleteTask()

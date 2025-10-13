@@ -85,45 +85,19 @@ export const handleDelete = (id: string) => {
 	}
 }
 
-export const handleEdit = () => {
-	const editBtns = Array.from(document.querySelectorAll('div[name=edit]') as NodeListOf<HTMLButtonElement>)
-
-	editBtns.forEach((btn: HTMLButtonElement) => {
-		let editMode = false
-		btn.addEventListener('click', (e: Event) => {
-			const target = e.target as HTMLDivElement
-			const id = target.parentElement?.id
-			const nodes = target.parentElement?.childNodes as NodeListOf<ChildNode>
-			const icon = nodes[5] as HTMLDivElement
-			const textarea = nodes[3] as HTMLTextAreaElement
-
-			editMode = !editMode
-
-			if (editMode) {
-				textarea.removeAttribute('readonly')
-				textarea.focus()
-				textarea.setSelectionRange(textarea.value.length, textarea.value.length)
-				icon.classList.remove('bi-pencil-fill')
-				icon.classList.add(...['bi-floppy-fill', 'text-success'])
-				return
-			}
-
-			textarea.setAttribute('readonly', '')
-			icon.classList.remove(...['bi-floppy-fill', 'text-success'])
-			icon.classList.add(...['bi-pencil-fill'])
-			const todoData = localStorage.getItem('todos')
-			if (typeof todoData === 'string') {
-				const todos = JSON.parse(todoData) as TodoData[]
-				const currentTask = todos.find((currentTask: TodoData) => currentTask.id === id) as TodoData
-				const editedTask = { ...currentTask, title: textarea.value }
-				const updatedTodos = todos.filter((todo: TodoData) => todo.id !== id)
-				updatedTodos.push(editedTask)
-				localStorage.setItem('todos', JSON.stringify(updatedTodos))
-				location.reload()
-				console.log('Task saved')
-			}
-		})
-	})
+export const handleSave = (id: string, text: string) => {
+	try {
+		const todoData = localStorage.getItem('todos')
+		if (!todoData) throw new Error('Tasks not found')
+		const todos = JSON.parse(todoData) as TodoData[]
+		const selectedTask = todos.find((task: TodoData) => task.id === id) as TodoData
+		const editedTask = { ...selectedTask, title: text }
+		const newData = todos.filter((todo: TodoData) => todo.id !== id)
+		newData.push(editedTask)
+		localStorage.setItem('todos', JSON.stringify(newData))
+	} catch (error: any) {
+		console.log(error.message)
+	}
 }
 
 export const renderTasks = (timestamp = Date.now()): string => {
@@ -157,6 +131,5 @@ export const renderMainContent = (container: HTMLDivElement, content: string) =>
 	container.innerHTML = ''
 	container.innerHTML = content
 	handleCompleted()
-	handleEdit()
 	handleNewTasks()
 }
