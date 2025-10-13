@@ -132,6 +132,8 @@ const deleteTask = () => {
 					if (target) {
 						if (target.name === 'confirm-delete') {
 							handleDelete(target.id)
+							renderMainContent(mainContent, renderTasks(timestamp))
+							deleteTask()
 							document.removeEventListener('click', handleClick)
 							popover.hide()
 						}

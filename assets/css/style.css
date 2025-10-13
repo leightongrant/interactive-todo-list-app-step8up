@@ -2,37 +2,55 @@
 	scroll-behavior: smooth;
 	--primary-color: #80bebf;
 	--primary-shadow: #80bebf66;
+	--primary-hover: #80bebfaa;
+
 	--secondary-color: #dae1e5;
+	--secondary-hover: #dae1e5aa;
+	--secondary-shadow: #dae1e566;
+
 	--crimson-color: #6b0a1d;
+	--crimson-hover: #6b0a1daa;
 	--crimson-shadow: #6b0a1d66;
+
 	--hot-pink-color: #ff69b4;
+	--hot-pink-hover: #ff69b4aa;
 	--hot-pink-shadow: #ff69b466;
+
 	--dark-color: #212529;
-	--dark-color-shadow: #21252966;
+	--dark-hover: #212529aa;
+	--dark-shadow: #21252966;
+
 	--midnight-blue-color: #003366;
-	--midnight-blue-color-shadow: #00336666;
+	--midnight-blue-hover: #003366aa;
+	--midnight-blue-shadow: #00336666;
 }
 .default {
-	--primary-color: #80bebf;
-	--primary-shadow: #80bebf66;
-	--secondary-color: #dae1e5;
+	--primary-color: var(--primary-color);
+	--primary-hover: var(--primary-hover);
+	--primary-shadow: var(--primary-shadow);
 }
 .crimson {
 	--primary-color: var(--crimson-color);
+	--primary-hover: var(--crimson-hover);
 	--primary-shadow: var(--crimson-shadow);
 }
 .hot-pink {
 	--primary-color: var(--hot-pink-color);
+	--primary-hover: var(--hot-pink-hover);
 	--primary-shadow: var(--hot-pink-shadow);
 }
 .midnight-blue {
 	--primary-color: var(--midnight-blue-color);
-	--primary-shadow: var(--midnight-blue-color-shadow);
+	--primary-hover: var(--midnight-blue-hover);
+	--primary-shadow: var(--midnight-blue-shadow);
 }
+
 .dark {
 	--primary-color: var(--dark-color);
-	--primary-shadow: var(--dark-color-shadow);
+	--primary-hover: var(--dark-hover);
+	--primary-shadow: var(--dark-shadow);
 }
+
 /* Elements */
 body {
 	font-family: Quicksand, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
@@ -124,7 +142,7 @@ input[name='date']::-webkit-calendar-picker-indicator {
 	color: var(--primary-color);
 }
 .circle-arrow:hover {
-	color: #80bebfaa;
+	color: var(--primary-hover);
 }
 
 div[name='delete'],

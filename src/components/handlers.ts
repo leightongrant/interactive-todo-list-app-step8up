@@ -80,7 +80,6 @@ export const handleDelete = (id: string) => {
 		const data = JSON.parse(todoData) as TodoData[]
 		const newData = data.filter((todo: TodoData) => todo.id !== id)
 		localStorage.setItem('todos', JSON.stringify(newData))
-		location.reload()
 	} catch (error: any) {
 		console.log(error.message)
 	}
