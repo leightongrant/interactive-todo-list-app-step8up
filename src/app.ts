@@ -1,7 +1,7 @@
 import header from './components/header.js'
 import footer from './components/footer.js'
 import layout from './components/layout.js'
-import { renderMainContent, renderTasks, handleDelete, handleSave, saveNewTask } from './components/handlers.js'
+import { renderMainContent, renderTasks, handleDelete, handleSave, saveNewTask, markCompleted } from './components/handlers.js'
 declare const bootstrap: any
 
 const app = document.querySelector('#app') as HTMLDivElement
@@ -137,6 +137,7 @@ const deleteTask = () => {
 							renderMainContent(mainContent, renderTasks(timestamp))
 							deleteTask()
 							editTask()
+							markTask()
 							document.removeEventListener('click', handleClick)
 							popover.hide()
 						}
@@ -162,7 +163,7 @@ const editTask = () => {
 		let editMode = false
 		btn.addEventListener('click', (e: Event) => {
 			const target = e.target as HTMLDivElement
-			const id = target.id
+			const id = target.id.slice(5)
 			const nodes = target.parentElement?.childNodes as NodeListOf<HTMLElement>
 			const icon = nodes[5] as HTMLDivElement
 			const textarea = nodes[3] as HTMLTextAreaElement
@@ -200,6 +201,7 @@ newTaskBtn.addEventListener('click', () => {
 		renderMainContent(mainContent, renderTasks(timestamp))
 		deleteTask()
 		editTask()
+		markTask()
 	} catch (error: any) {
 		// Provides feedback on placeholder
 		const style = document.querySelector('style') as HTMLStyleElement
@@ -224,5 +226,22 @@ newTaskBtn.addEventListener('click', () => {
 	}
 })
 
+// Check or uncheck completed tasks
+const markTask = () => {
+	const completedBtns = document.querySelectorAll('.completed') as NodeListOf<HTMLButtonElement>
+	completedBtns.forEach(btn => {
+		btn.addEventListener('click', e => {
+			const target = e.target as HTMLButtonElement
+			const id = target.name === 'incomplete' ? target.id.slice(7) : target.id.slice(13)
+			markCompleted(id)
+			renderMainContent(mainContent, renderTasks(timestamp))
+			markTask()
+			editTask()
+			deleteTask()
+		})
+	})
+}
+
 editTask()
 deleteTask()
+markTask()

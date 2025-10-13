@@ -18,21 +18,21 @@ export const settingsIcon = () => {
     `
 }
 
-export const checkCircleIcon = () => {
+export const checkCircleIcon = (id: string) => {
 	return `
-    <div class="bi bi-check2-circle text-success fs-1 ms-3" role="button" name="completed" title="Mark As Incomplete"></div>
+    <button class="bi bi-check2-circle text-success fs-1 ms-3 completed bg-transparent border-0" role="button" name="completed" title="Mark As Incomplete" id="circle-check-${id}"></button>
     `
 }
 
-export const circleIcon = () => {
+export const circleIcon = (id: string) => {
 	return `
-    <div class="bi bi-circle text-secondary fs-1 ms-3" role="button" name="completed" title="Mark As Completed"></div>
+    <button class="bi bi-circle text-secondary fs-1 ms-3 completed bg-transparent border-0" role="button" name="incomplete" title="Mark As Completed" id="circle-${id}"></button>
     `
 }
 
 export const editIcon = (id: string) => {
 	return `
-    <div class="bi bi-pencil-fill text-secondary fs-3" role="button" id="${id}" name="edit" title="Edit Task"></div>
+    <div class="bi bi-pencil-fill text-secondary fs-3" role="button" id="edit-${id}" name="edit" title="Edit Task"></div>
     `
 }
 

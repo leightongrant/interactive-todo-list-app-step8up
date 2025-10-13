@@ -2,7 +2,7 @@ import type { TodoData } from '../types.js'
 import generateId from '../utils/generateId.js'
 import todoItem from './todoItem.js'
 import noTasks from './noTasks.js'
-
+/*
 export const handleCompleted = () => {
 	const completedBtns = Array.from(document.querySelectorAll('div[name=completed]') as NodeListOf<HTMLDivElement>)
 	completedBtns.forEach(btn => {
@@ -27,10 +27,22 @@ export const handleCompleted = () => {
 		})
 	})
 }
-
-export const setCurrentDay = (timestamp: number) => {
-	const currentDaySpan = document.querySelector('.current-day') as HTMLSpanElement
-	currentDaySpan.innerText = ''
+*/
+export const markCompleted = (id: string) => {
+	try {
+		const todoData = localStorage.getItem('todos')
+		if (!todoData) throw new Error('Data not found!')
+		const data = JSON.parse(todoData) as TodoData[]
+		const newData = data.map((todo: TodoData) => {
+			if (todo.id === id) {
+				return { ...todo, isCompleted: !todo.isCompleted }
+			}
+			return todo
+		})
+		localStorage.setItem('todos', JSON.stringify(newData))
+	} catch (error: any) {
+		console.log(error.message)
+	}
 }
 
 export const saveNewTask = (title: string) => {
@@ -53,26 +65,6 @@ export const saveNewTask = (title: string) => {
 	} catch (error: any) {
 		console.log(error.message)
 	}
-	/*
-
-			if (!localStorage.getItem('todos')) {
-				localStorage.setItem('todos', JSON.stringify([newTask]))
-				console.log('Saved new todo item')
-				input.value = ''
-				location.reload()
-				return
-			}
-
-			const todoData = localStorage.getItem('todos')
-			if (typeof todoData === 'string') {
-				const newData = JSON.parse(todoData) as TodoData[]
-				newData.push(newTask)
-				localStorage.setItem('todos', JSON.stringify(newData))
-				console.log('Saved new todo item')
-				input.value = ''
-				location.reload()
-			}
-		*/
 }
 
 export const handleDelete = (id: string) => {
@@ -132,6 +124,6 @@ export const renderTasks = (timestamp = Date.now()): string => {
 export const renderMainContent = (container: HTMLDivElement, content: string) => {
 	container.innerHTML = ''
 	container.innerHTML = content
-	handleCompleted()
+	// handleCompleted()
 	// handleNewTasks()
 }
