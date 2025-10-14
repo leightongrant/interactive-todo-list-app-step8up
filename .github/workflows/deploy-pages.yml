@@ -1,0 +1,52 @@
+name: Build & deploy to GitHub Pages
+
+# Run on pushes to main (adjust branch if needed)
+on:
+    push:
+        branches: [main]
+
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+concurrency:
+    group: deploy-pages
+    cancel-in-progress: true
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18'
+
+            - name: Install dependencies (or TypeScript globally)
+              run: |
+                  if [ -f package.json ]; then
+                    npm ci
+                  else
+                    npm install -g typescript
+                  fi
+
+            - name: Build (TypeScript)
+              run: |
+                  # prefer local tsc if it's installed, otherwise use global
+                  if [ -f node_modules/.bin/tsc ]; then
+                    npx tsc -p tsconfig.json
+                  else
+                    tsc -p tsconfig.json
+                  fi
+
+            - name: Upload site contents for Pages
+              uses: actions/upload-pages-artifact@v1
+              with:
+                  path: . # publish the repo root (index.html + assets). Change to 'assets/scripts' or 'docs' if your site is elsewhere.
+
+            - name: Deploy to GitHub Pages
+              uses: actions/deploy-pages@v1
