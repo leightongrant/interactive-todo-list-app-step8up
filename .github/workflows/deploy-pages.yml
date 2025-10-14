@@ -46,7 +46,7 @@ jobs:
             - name: Upload site contents for Pages
               uses: actions/upload-pages-artifact@v1
               with:
-                  path: . # publish the repo root (index.html + assets). Change to 'assets/scripts' or 'docs' if your site is elsewhere.
+                  path: ./assets/scripts # publish the repo root (index.html + assets). Change to 'assets/scripts' or 'docs' if your site is elsewhere.
 
             - name: Deploy to GitHub Pages
               uses: actions/deploy-pages@v1
