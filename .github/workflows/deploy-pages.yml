@@ -6,47 +6,46 @@ on:
         branches: [main]
 
 permissions:
-    contents: read
-    pages: write
-    id-token: write
+    contents: read # for actions/checkout
+    pages: write # to deploy to Pages
+    id-token: write # to verify the deployment originates from an authentic source
 
 concurrency:
-    group: deploy-pages
+    group: 'pages'
     cancel-in-progress: true
 
 jobs:
-    build-and-deploy:
+    build:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v4
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: '18'
-
-            - name: Install dependencies (or TypeScript globally)
-              run: |
-                  if [ -f package.json ]; then
-                    npm ci
-                  else
-                    npm install -g typescript
-                  fi
+            - name: Install TypeScript
+              run: npm install -g typescript
 
             - name: Build (TypeScript)
-              run: |
-                  # prefer local tsc if it's installed, otherwise use global
-                  if [ -f node_modules/.bin/tsc ]; then
-                    npx tsc -p tsconfig.json
-                  else
-                    tsc -p tsconfig.json
-                  fi
+              run: tsc -p tsconfig.json
 
-            - name: Upload site contents for Pages
-              uses: actions/upload-pages-artifact@v1
+            - name: Setup Pages
+              uses: actions/configure-pages@v4
+
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3
               with:
-                  path: ./assets/scripts # publish the repo root (index.html + assets). Change to 'assets/scripts' or 'docs' if your site is elsewhere.
+                  # Upload everything from the root directory
+                  path: '.'
 
+    deploy:
+        needs: build
+        permissions:
+            pages: write
+            id-token: write
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        steps:
             - name: Deploy to GitHub Pages
-              uses: actions/deploy-pages@v1
+              id: deployment
+              uses: actions/deploy-pages@v4
