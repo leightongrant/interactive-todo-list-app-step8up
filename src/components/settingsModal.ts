@@ -13,13 +13,13 @@ export const settingsModal = () => {
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="theme" id="crimson" value="crimson" title="Select Crimson Theme">
+                        <input class="form-check-input" type="radio" name="theme" id="crimson" value="crimson" title="Select Crimson Theme" checked="true">
                         <label class="form-check-label" for="crimson">
                             Crimson
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="theme" id="hot-pink" value="hot-pink" title="Select Hot Pink Theme">
+                        <input class="form-check-input" type="radio" name="theme" id="hot-pink" value="hot-pink" title="Select Hot Pink Theme" >
                         <label class="form-check-label" for="hot-pink">
                             Hot Pink
                         </label>
@@ -42,7 +42,7 @@ export const settingsModal = () => {
                 <i class="bi bi-arrow-right-circle-fill fs-1" type="button" id="settings-confirm" title="Save Settings"></i>
             </div>        
     </dialog>
-    `
-}
+    `;
+};
 
-export default settingsModal
+export default settingsModal;

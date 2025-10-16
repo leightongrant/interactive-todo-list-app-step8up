@@ -14,12 +14,26 @@ const mainContent = document.querySelector(".main-content") as HTMLDivElement;
 const body = document.querySelector("body") as HTMLBodyElement;
 
 // Set Theme
+const setAtiveTheme = (themeName: string) => {
+	const radioButtons = document.querySelectorAll("input[type=radio]") as NodeListOf<HTMLInputElement>;
+	radioButtons.forEach((radio) => {
+		console.log(themeName === radio.id);
+		if (themeName !== radio.id) {
+			radio.removeAttribute("checked");
+		} else {
+			radio.setAttribute("checked", "");
+		}
+	});
+};
+
 try {
 	const themeName = localStorage.getItem("theme");
 	if (!themeName) {
 		body.classList.add("default");
+		setAtiveTheme("default");
 	} else {
 		body.classList.add(themeName);
+		setAtiveTheme(themeName);
 	}
 } catch (error: any) {
 	console.log(error.message);
@@ -94,6 +108,7 @@ cancelSettingsDialog.addEventListener("click", () => settingsModal.close());
 confirmSettingsDialog.addEventListener("click", () => {
 	settingsForm.requestSubmit();
 });
+
 settingsForm.addEventListener("submit", (e: Event) => {
 	e.preventDefault();
 	const target = e.target as HTMLFormElement;
