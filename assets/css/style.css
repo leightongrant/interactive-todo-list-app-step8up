@@ -24,11 +24,13 @@
 	--midnight-blue-hover: #003366aa;
 	--midnight-blue-shadow: #00336666;
 }
+
 .default {
-	--primary-color: var(--primary-color);
-	--primary-hover: var(--primary-hover);
-	--primary-shadow: var(--primary-shadow);
+	--primary-color: #80bebf;
+	--primary-hover: #80bebf66;
+	--primary-shadow: #80bebf66;
 }
+
 .crimson {
 	--primary-color: var(--crimson-color);
 	--primary-hover: var(--crimson-hover);
@@ -53,7 +55,7 @@
 
 /* Elements */
 body {
-	font-family: Quicksand, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+	font-family: Quicksand, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
 		sans-serif;
 }
 textarea {
@@ -61,7 +63,7 @@ textarea {
 	outline: none;
 	resize: none;
 }
-input[name='new'] {
+input[name="new"] {
 	outline: none;
 }
 
@@ -98,7 +100,7 @@ dialog::backdrop {
 /* Settings */
 
 /* Date Picker */
-input[name='date'] {
+input[name="date"] {
 	font-weight: 500;
 	color: #1a1a1a;
 	background-color: #f9f9f9;
@@ -109,12 +111,12 @@ input[name='date'] {
 	width: 100%;
 }
 
-input[name='date']:focus {
+input[name="date"]:focus {
 	border-color: var(--primary-color);
 	box-shadow: 0 0 0 0.25rem var(--primary-shadow);
 	outline: none;
 }
-input[name='date']::-webkit-calendar-picker-indicator {
+input[name="date"]::-webkit-calendar-picker-indicator {
 	cursor: pointer;
 }
 
@@ -146,12 +148,12 @@ input[name='date']::-webkit-calendar-picker-indicator {
 	color: var(--primary-hover);
 }
 
-div[name='delete'],
-div[name='edit'] {
+div[name="delete"],
+div[name="edit"] {
 	transition: all 1s ease;
 }
-div[name='delete']:hover,
-div[name='edit']:hover {
+div[name="delete"]:hover,
+div[name="edit"]:hover {
 	transform: scale(1.1);
 }
 
