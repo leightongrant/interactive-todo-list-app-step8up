@@ -1,7 +1,16 @@
 import header from "./components/header.js";
 import footer from "./components/footer.js";
 import layout from "./components/layout.js";
-import { renderMainContent, renderTasks, handleDelete, handleSave, saveNewTask, markCompleted, setTheme } from "./components/handlers.js";
+import {
+	renderMainContent,
+	renderTasks,
+	handleDelete,
+	saveEditedTask,
+	saveNewTask,
+	markCompleted,
+	setTheme,
+	getLastDateViewed,
+} from "./components/handlers.js";
 declare const bootstrap: any;
 
 const app = document.querySelector("#app") as HTMLDivElement;
@@ -10,11 +19,11 @@ appContainer.innerHTML = `${layout(header(), footer())}`;
 app.append(appContainer);
 
 // Start Up
-let timestamp = Date.now();
+localStorage.setItem("day", JSON.stringify(Date.now()));
 const mainContent = document.querySelector(".main-content") as HTMLDivElement;
 const body = document.querySelector("body") as HTMLBodyElement;
 setTheme();
-renderMainContent(mainContent, renderTasks(timestamp));
+renderMainContent(mainContent, renderTasks(Date.now()));
 
 // Main Buttons
 const calendarButton = document.querySelector("div[name=date]") as HTMLButtonElement;
@@ -38,9 +47,10 @@ calendarButton.addEventListener("click", () => {
 
 // Home Button - Sets date to current day
 homeButton.addEventListener("click", () => {
-	const timestamp = Date.now();
-	localStorage.setItem("day", timestamp.toString());
-	renderMainContent(mainContent, renderTasks(timestamp));
+	localStorage.setItem("day", Date.now().toString());
+	renderMainContent(mainContent, renderTasks(Date.now()));
+	editTask();
+	markTask();
 	deleteTask();
 });
 
@@ -53,6 +63,8 @@ confirmDateDialog.addEventListener("click", () => {
 	const selectedTimestamp = new Date(parseInt(year), parseInt(month) - 1, parseInt(day)).getTime();
 	localStorage.setItem("day", selectedTimestamp.toString());
 	renderMainContent(mainContent, renderTasks(selectedTimestamp));
+	editTask();
+	markTask();
 	deleteTask();
 	dateModal.close();
 });
@@ -109,7 +121,7 @@ const deleteTask = () => {
 					if (target) {
 						if (target.name === "confirm-delete") {
 							handleDelete(target.id);
-							renderMainContent(mainContent, renderTasks(timestamp));
+							renderMainContent(mainContent, renderTasks(getLastDateViewed()));
 							deleteTask();
 							editTask();
 							markTask();
@@ -157,7 +169,7 @@ const editTask = () => {
 			textarea.setAttribute("readonly", "");
 			icon.classList.remove(...["bi-floppy-fill", "text-info"]);
 			icon.classList.add(...["bi-pencil-fill"]);
-			handleSave(id, textarea.value);
+			saveEditedTask(id, textarea.value);
 		});
 	});
 };
@@ -171,9 +183,10 @@ newTaskBtn.addEventListener("click", () => {
 		const re = /[a-zA-Z0-9]+/gi;
 		const taskTitle = newTask.match(re)?.join(" ");
 		if (!taskTitle) throw new Error("Invalid title, only text and number allowed");
+
 		saveNewTask(taskTitle);
 		newTaskInput.value = "";
-		renderMainContent(mainContent, renderTasks(timestamp));
+		renderMainContent(mainContent, renderTasks(getLastDateViewed()));
 		deleteTask();
 		editTask();
 		markTask();
@@ -209,7 +222,7 @@ const markTask = () => {
 			const target = e.target as HTMLButtonElement;
 			const id = target.name === "incomplete" ? target.id.slice(7) : target.id.slice(13);
 			markCompleted(id);
-			renderMainContent(mainContent, renderTasks(timestamp));
+			renderMainContent(mainContent, renderTasks(getLastDateViewed()));
 			markTask();
 			editTask();
 			deleteTask();

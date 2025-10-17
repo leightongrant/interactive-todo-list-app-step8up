@@ -6,19 +6,16 @@ import noTasks from "./noTasks.js";
 const body = document.querySelector("body") as HTMLBodyElement;
 
 // Set Date
-export const setLastDateViewed = (timestamp: number, renderMainContent: Function, renderTasks: Function, mainContent: string) => {
+export const getLastDateViewed = (): number => {
 	try {
 		const savedDay = localStorage.getItem("day");
-		if (!savedDay) {
-			timestamp = Date.now();
-		}
-		if (typeof savedDay === "string") {
-			timestamp = parseInt(savedDay);
-			renderMainContent(mainContent, renderTasks(timestamp));
+		if (savedDay) {
+			return parseInt(savedDay);
 		}
 	} catch (error: any) {
 		console.log(error.message);
 	}
+	return Date.now();
 };
 
 // Set Theme
@@ -65,8 +62,9 @@ export const markCompleted = (id: string) => {
 	}
 };
 
+// Handles saving new tasks
 export const saveNewTask = (title: string) => {
-	const newTask: TodoData = {
+	let newTask: TodoData = {
 		id: generateId(),
 		title: title,
 		isCompleted: false,
@@ -74,11 +72,17 @@ export const saveNewTask = (title: string) => {
 	};
 
 	try {
+		const currentDate = localStorage.getItem("day");
+		if (currentDate) {
+			newTask = { ...newTask, createAt: parseInt(currentDate) };
+		}
+
 		const todoData = localStorage.getItem("todos");
 		if (!todoData) {
 			localStorage.setItem("todos", JSON.stringify([newTask]));
 			return;
 		}
+
 		const data = JSON.parse(todoData) as TodoData[];
 		data.push(newTask);
 		localStorage.setItem("todos", JSON.stringify(data));
@@ -87,6 +91,7 @@ export const saveNewTask = (title: string) => {
 	}
 };
 
+// Delete Handler
 export const handleDelete = (id: string) => {
 	try {
 		const todoData = localStorage.getItem("todos");
@@ -99,7 +104,8 @@ export const handleDelete = (id: string) => {
 	}
 };
 
-export const handleSave = (id: string, text: string) => {
+// Handles save when task is edited
+export const saveEditedTask = (id: string, text: string) => {
 	try {
 		const todoData = localStorage.getItem("todos");
 		if (!todoData) throw new Error("Tasks not found");
@@ -114,6 +120,7 @@ export const handleSave = (id: string, text: string) => {
 	}
 };
 
+// Render tasks
 export const renderTasks = (timestamp = Date.now()): string => {
 	const currentDaySpan = document.querySelector(".current-day") as HTMLSpanElement;
 	currentDaySpan.innerText = new Date(timestamp).toDateString();
@@ -145,6 +152,7 @@ export const renderTasks = (timestamp = Date.now()): string => {
 	return noTasks();
 };
 
+// Renders Page
 export const renderMainContent = (container: HTMLDivElement, content: string) => {
 	container.innerHTML = "";
 	container.innerHTML = content;
