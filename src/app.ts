@@ -1,7 +1,7 @@
 import header from "./components/header.js";
 import footer from "./components/footer.js";
 import layout from "./components/layout.js";
-import { renderMainContent, renderTasks, handleDelete, handleSave, saveNewTask, markCompleted } from "./components/handlers.js";
+import { renderMainContent, renderTasks, handleDelete, handleSave, saveNewTask, markCompleted, setTheme } from "./components/handlers.js";
 declare const bootstrap: any;
 
 const app = document.querySelector("#app") as HTMLDivElement;
@@ -9,51 +9,11 @@ const appContainer = document.querySelector(".app-container") as HTMLDivElement;
 appContainer.innerHTML = `${layout(header(), footer())}`;
 app.append(appContainer);
 
+// Start Up
 let timestamp = Date.now();
 const mainContent = document.querySelector(".main-content") as HTMLDivElement;
 const body = document.querySelector("body") as HTMLBodyElement;
-
-// Set Theme
-const setAtiveTheme = (themeName: string) => {
-	const radioButtons = document.querySelectorAll("input[type=radio]") as NodeListOf<HTMLInputElement>;
-	radioButtons.forEach((radio) => {
-		console.log(themeName, radio.id);
-		if (themeName !== radio.id) {
-			radio.removeAttribute("checked");
-		} else {
-			radio.setAttribute("checked", "");
-		}
-	});
-};
-
-try {
-	const themeName = localStorage.getItem("theme");
-	if (!themeName) {
-		body.classList.add("default");
-		setAtiveTheme("default");
-	} else {
-		body.classList.add(themeName);
-		setAtiveTheme(themeName);
-	}
-} catch (error: any) {
-	console.log(error.message);
-}
-
-// Set Date
-try {
-	const savedDay = localStorage.getItem("day");
-	if (!savedDay) {
-		timestamp = Date.now();
-	}
-	if (typeof savedDay === "string") {
-		timestamp = parseInt(savedDay);
-		renderMainContent(mainContent, renderTasks(timestamp));
-	}
-} catch (error: any) {
-	console.log(error.message);
-}
-
-// Render Content
+setTheme();
 renderMainContent(mainContent, renderTasks(timestamp));
 
 // Main Buttons
