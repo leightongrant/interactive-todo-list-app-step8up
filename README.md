@@ -6,7 +6,7 @@ A lightweight, accessible, interactive TODO list application built with TypeScri
 
 If you've deployed the project, replace the link below with your GitHub Pages or hosting URL.
 
-[![Live demo](https://img.shields.io/badge/Live%20Demo-View-brightgreen?style=for-the-badge)](https://your-username.github.io/interactive-todo-list-app-step8up/)
+[![Live demo](https://img.shields.io/badge/Live%20Demo-View-brightgreen?style=for-the-badge)](https://leightongrant.github.io/interactive-todo-list-app-step8up/)
 
 ## Overview
 

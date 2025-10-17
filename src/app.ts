@@ -17,7 +17,7 @@ const body = document.querySelector("body") as HTMLBodyElement;
 const setAtiveTheme = (themeName: string) => {
 	const radioButtons = document.querySelectorAll("input[type=radio]") as NodeListOf<HTMLInputElement>;
 	radioButtons.forEach((radio) => {
-		console.log(themeName === radio.id);
+		console.log(themeName, radio.id);
 		if (themeName !== radio.id) {
 			radio.removeAttribute("checked");
 		} else {
