@@ -175,7 +175,7 @@ div[name="edit"]:hover {
 	.app-container,
 	.canvas-container {
 		border-radius: 1.25rem;
-		max-width: 1140px;
+		max-width: 1136.8px;
 		margin: auto;
 		border: 2px solid var(--primary-color);
 	}
@@ -187,5 +187,32 @@ div[name="edit"]:hover {
 	}
 	header {
 		border-radius: 1rem 1rem 0 0;
+	}
+
+	header {
+		position: fixed !important;
+		top: 32px !important;
+		width: 1136.8px;
+		margin: auto;
+		z-index: 20;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	footer {
+		position: fixed !important;
+		bottom: 32px !important;
+		width: 1136.8px;
+		margin: auto;
+		z-index: 20;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	main {
+		margin-top: 115px;
+		width: 1136.8px;
+	}
+	.app-container {
+		position: relative;
 	}
 }
