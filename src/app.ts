@@ -19,6 +19,10 @@ appContainer.innerHTML = `${layout(header(), footer())}`;
 app.append(appContainer);
 
 // Start Up
+const newTaskBtn = document.querySelector("div[name=new]") as HTMLDivElement;
+const newTaskInput = document.querySelector("#new") as HTMLInputElement;
+
+newTaskInput.focus();
 localStorage.setItem("day", JSON.stringify(Date.now()));
 const mainContent = document.querySelector(".main-content") as HTMLDivElement;
 const body = document.querySelector("body") as HTMLBodyElement;
@@ -37,8 +41,6 @@ const cancelSettingsDialog = document.querySelector("#settings-cancel") as HTMLB
 const confirmSettingsDialog = document.querySelector("#settings-confirm") as HTMLButtonElement;
 const settingsForm = document.querySelector(".settings-form") as HTMLFormElement;
 const dateInput = document.querySelector("input[name=date]") as HTMLInputElement;
-const newTaskBtn = document.querySelector("div[name=new]") as HTMLDivElement;
-const newTaskInput = document.querySelector("#new") as HTMLInputElement;
 
 // Launch Date Picker
 calendarButton.addEventListener("click", () => {
