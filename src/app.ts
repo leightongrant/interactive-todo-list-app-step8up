@@ -41,6 +41,7 @@ const cancelSettingsDialog = document.querySelector("#settings-cancel") as HTMLB
 const confirmSettingsDialog = document.querySelector("#settings-confirm") as HTMLButtonElement;
 const settingsForm = document.querySelector(".settings-form") as HTMLFormElement;
 const dateInput = document.querySelector("input[name=date]") as HTMLInputElement;
+const style = document.querySelector("style") as HTMLStyleElement;
 
 // Launch Date Picker
 calendarButton.addEventListener("click", () => {
@@ -187,14 +188,20 @@ const newSaveHandler = () => {
 		if (!taskTitle) throw new Error("Invalid title, only text and number allowed");
 
 		saveNewTask(taskTitle);
+
+		// Resets new task input
 		newTaskInput.value = "";
+		newTaskInput.placeholder = "Add a new task";
+		if (style) {
+			style.innerHTML = "";
+		}
+
 		renderMainContent(mainContent, renderTasks(getLastDateViewed()));
 		deleteTask();
 		editTask();
 		markTask();
 	} catch (error: any) {
 		// Provides feedback on placeholder
-		const style = document.querySelector("style") as HTMLStyleElement;
 		if (style) {
 			const re = /placeholder/gi;
 			if (re.test(style.innerHTML)) return;
