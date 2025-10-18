@@ -175,7 +175,7 @@ const editTask = () => {
 };
 
 // Save new tasks
-newTaskBtn.addEventListener("click", () => {
+const newSaveHandler = () => {
 	try {
 		//Checks for invalid input before creating new tasks
 		const newTask = newTaskInput.value;
@@ -212,6 +212,10 @@ newTaskBtn.addEventListener("click", () => {
 		newTaskInput.placeholder = error.message;
 		console.log(error.message);
 	}
+};
+newTaskBtn.addEventListener("click", newSaveHandler);
+newTaskInput.addEventListener("keypress", (e: KeyboardEvent) => {
+	if (e.key === "Enter") newSaveHandler();
 });
 
 // Check or uncheck completed tasks
