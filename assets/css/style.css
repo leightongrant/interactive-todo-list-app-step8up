@@ -169,6 +169,10 @@ div[name="edit"]:hover {
 	height: 3.875rem;
 	border: 2px solid var(--primary-color);
 }
+/* Error */
+.input-error {
+	transition: all 500ms ease;
+}
 
 /* Media Query */
 @media (min-width: 1200px) {

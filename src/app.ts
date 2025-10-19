@@ -41,7 +41,7 @@ const cancelSettingsDialog = document.querySelector("#settings-cancel") as HTMLB
 const confirmSettingsDialog = document.querySelector("#settings-confirm") as HTMLButtonElement;
 const settingsForm = document.querySelector(".settings-form") as HTMLFormElement;
 const dateInput = document.querySelector("input[name=date]") as HTMLInputElement;
-const style = document.querySelector("style") as HTMLStyleElement;
+const inputError = document.querySelector(".input-error") as HTMLDivElement;
 
 // Launch Date Picker
 calendarButton.addEventListener("click", () => {
@@ -185,16 +185,12 @@ const newSaveHandler = () => {
 		if (!newTask) throw new Error("Please enter a new task");
 		const re = /[a-zA-Z0-9]+/gi;
 		const taskTitle = newTask.match(re)?.join(" ");
-		if (!taskTitle) throw new Error("Invalid title, only text and number allowed");
+		if (!taskTitle) throw new Error("Invalid title, only letters and numbers allowed");
 
 		saveNewTask(taskTitle);
 
 		// Resets new task input
 		newTaskInput.value = "";
-		newTaskInput.placeholder = "Add a new task";
-		if (style) {
-			style.innerHTML = "";
-		}
 
 		renderMainContent(mainContent, renderTasks(getLastDateViewed()));
 		deleteTask();
@@ -202,28 +198,14 @@ const newSaveHandler = () => {
 		markTask();
 	} catch (error: any) {
 		// Provides feedback on placeholder
-		if (style) {
-			const re = /placeholder/gi;
-			if (re.test(style.innerHTML)) return;
-			style.innerHTML += `#new::placeholder {
-		 		color: red;
-		 		opacity: 1;
-		 	}`;
-		} else {
-			const style = document.createElement("style");
-			style.innerHTML = `
-			#new::placeholder {
-				color: red;
-				opacity: 1;
-			}`;
-			document.head.appendChild(style);
-		}
-		newTaskInput.placeholder = error.message;
+		inputError.innerText = error?.message || "Input Error";
+		newTaskInput.value = "";
 		console.log(error.message);
 	}
 };
 newTaskBtn.addEventListener("click", newSaveHandler);
 newTaskInput.addEventListener("keypress", (e: KeyboardEvent) => {
+	inputError.innerText = "";
 	if (e.key === "Enter") newSaveHandler();
 });
 
