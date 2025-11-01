@@ -63,7 +63,7 @@ export const markCompleted = (id: string) => {
 };
 
 // Handles saving new tasks
-export const saveNewTask = (title: string) => {
+export const saveNewTask = (title: string, feedback: HTMLDivElement) => {
 	let newTask: TodoData = {
 		id: generateId(),
 		title: title,
@@ -84,6 +84,15 @@ export const saveNewTask = (title: string) => {
 		}
 
 		const data = JSON.parse(todoData) as TodoData[];
+
+		// Check if task already exist
+		const exist = data.some((todo: TodoData) => todo.title.toLowerCase() === newTask.title.toLowerCase());
+		if (exist) {
+			feedback.innerText = "";
+			feedback.innerText = "Task already added!";
+			return;
+		}
+
 		data.push(newTask);
 		localStorage.setItem("todos", JSON.stringify(data));
 	} catch (error: any) {
@@ -105,13 +114,22 @@ export const handleDelete = (id: string) => {
 };
 
 // Handles save when task is edited
-export const saveEditedTask = (id: string, text: string) => {
+export const saveEditedTask = (id: string, text: string, feedback: HTMLDivElement) => {
 	try {
 		const todoData = localStorage.getItem("todos");
 		if (!todoData) throw new Error("Tasks not found");
 		const todos = JSON.parse(todoData) as TodoData[];
 		const selectedTask = todos.find((task: TodoData) => task.id === id) as TodoData;
 		const editedTask = { ...selectedTask, title: text };
+
+		// Check if task already exist
+		const exist = todos.some((todo: TodoData) => todo.title.toLowerCase() === editedTask.title.toLowerCase());
+		if (exist) {
+			feedback.innerText = "";
+			feedback.innerText = "Task already added!";
+			return;
+		}
+
 		const newData = todos.filter((todo: TodoData) => todo.id !== id);
 		newData.push(editedTask);
 		localStorage.setItem("todos", JSON.stringify(newData));

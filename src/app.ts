@@ -99,6 +99,7 @@ const deleteTask = () => {
 	const deleteBtns = document.querySelectorAll("div[name=delete]") as NodeListOf<HTMLButtonElement>;
 	deleteBtns.forEach((btn) => {
 		btn.addEventListener("click", (e: Event) => {
+			inputError.innerText = "";
 			try {
 				const target = e.target as HTMLButtonElement;
 				if (!target) throw new Error("Button element not found!");
@@ -152,6 +153,7 @@ const editTask = () => {
 	editBtns.forEach((btn: HTMLButtonElement) => {
 		let editMode = false;
 		btn.addEventListener("click", (e: Event) => {
+			inputError.innerText = "";
 			const target = e.target as HTMLDivElement;
 			const id = target.id.slice(5);
 			const nodes = target.parentElement?.childNodes as NodeListOf<HTMLElement>;
@@ -172,7 +174,11 @@ const editTask = () => {
 			textarea.setAttribute("readonly", "");
 			icon.classList.remove(...["bi-floppy-fill", "text-info"]);
 			icon.classList.add(...["bi-pencil-fill"]);
-			saveEditedTask(id, textarea.value);
+			saveEditedTask(id, textarea.value, inputError);
+			renderMainContent(mainContent, renderTasks(getLastDateViewed()));
+			editTask();
+			markTask();
+			deleteTask();
 		});
 	});
 };
@@ -187,7 +193,7 @@ const newSaveHandler = () => {
 		const taskTitle = newTask.match(re)?.join(" ");
 		if (!taskTitle) throw new Error("Invalid title, only letters and numbers allowed");
 
-		saveNewTask(taskTitle);
+		saveNewTask(taskTitle, inputError);
 
 		// Resets new task input
 		newTaskInput.value = "";
