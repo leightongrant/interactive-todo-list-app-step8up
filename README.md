@@ -4,7 +4,7 @@
 
 A lightweight, accessible, interactive TODO list application built with TypeScript, modular components, and a small vanilla JS runtime. The project uses TypeScript source files in `src/`, a `tsconfig.json` for build configuration, and plain HTML/CSS/JS for the UI.
 
-![App preview](https://raw.githubusercontent.com/leightongrant/interactive-todo-list-app-step8up/main/assets/images/screenshot.png)
+![App preview](https://raw.githubusercontent.com/leightongrant/interactive-todo-list-app-step8up/main/assets/images/screenshot.webp)
 
 ## Live demo
 
