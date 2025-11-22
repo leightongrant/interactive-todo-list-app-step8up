@@ -1,3 +1,7 @@
+# Interactive TODO List App
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
+
 A lightweight, accessible, interactive TODO list application built with TypeScript, modular components, and a small vanilla JS runtime. The project uses TypeScript source files in `src/`, a `tsconfig.json` for build configuration, and plain HTML/CSS/JS for the UI.
 
 ![App preview](https://raw.githubusercontent.com/leightongrant/interactive-todo-list-app-step8up/main/assets/images/screenshot.png)
@@ -29,7 +33,12 @@ If you've deployed the project, replace the link below with your GitHub Pages or
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white&style=for-the-badge)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black&style=for-the-badge)
 ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?logo=githubactions&logoColor=white&style=for-the-badge)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
+
+-   TypeScript
+-   HTML5
+-   CSS3
+-   JavaScript
+-   GitHub Actions
 
 ## Quick start
 
